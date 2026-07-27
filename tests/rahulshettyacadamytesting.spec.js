@@ -56,6 +56,6 @@ test.only('Registration Testcase', async ({browser})=>
     
 
 
-    console.log("Test Run Successfully");
+    console.log("Test Run Success");
 
 });
