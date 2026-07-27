@@ -18,7 +18,7 @@ const {test, expect} = require('@playwright/test');
 //     });
 
 
-test.only('Registration Testcase', async ({browser})=>
+test.only('TC-POS-01: Successful Registration with Valid Data', async ({browser})=>
 {
     const context = await browser.newContext();
     const page = await context.newPage();
@@ -35,7 +35,6 @@ test.only('Registration Testcase', async ({browser})=>
     const submitButton = page.locator('#login');
     const loginConfirmbutton = page.locator('.btn-primary');
     const toastError = page.locator('#toast-container');
-
 
     await page.goto('https://rahulshettyacademy.com/client/#/auth/login');
     await registerButton.click();
@@ -57,5 +56,6 @@ test.only('Registration Testcase', async ({browser})=>
 
 
     console.log("Test Run Success");
+    //await page.pause();
 
 });
