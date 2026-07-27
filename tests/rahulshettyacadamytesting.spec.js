@@ -17,7 +17,6 @@ const {test, expect} = require('@playwright/test');
 //         });
 //     });
 
-
 test.only('TC-POS-01: Successfull Registration with Valid Data', async ({browser})=>
 {
     const context = await browser.newContext();
