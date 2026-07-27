@@ -29,11 +29,7 @@ test('TC-POS-03: Verify error message for login with incorrect password', async 
     await page.getByRole('textbox', { name: 'email@example.com' }).fill('franz.rose225@gmail.com');
     await page.getByRole('textbox', { name: 'enter your passsword' }).fill('incorrectpass');
     await page.getByRole('button', { name: 'Login' }).click();
-    
-//allert pop up message
-    const errorMessage = page.locator('#toast-container');
-    await expect(errorMessage).toBeVisible();
-    await expect(errorMessage).toHaveText('Incorrect email or password.');
+    await expect(page.locator('#toast-container')).toHaveText('Incorrect email or password.');
 
 });
 
