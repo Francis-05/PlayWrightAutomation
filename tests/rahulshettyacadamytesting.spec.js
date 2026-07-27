@@ -18,7 +18,7 @@ const {test, expect} = require('@playwright/test');
 //     });
 
 
-test.only('TC-POS-01: Successful Registration with Valid Data', async ({browser})=>
+test.only('TC-POS-01: Successfull Registration with Valid Data', async ({browser})=>
 {
     const context = await browser.newContext();
     const page = await context.newPage();
