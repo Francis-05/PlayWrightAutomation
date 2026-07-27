@@ -39,7 +39,7 @@ test('TC-POS-01: Verify successfull login with valid credentials', async ({page}
 });
 
 //login feature (negative cases)
-test.only('TC-POS-02: Verify error message for login with unregistered email', async ({page}) => {
+test('TC-POS-02: Verify error message for login with unregistered email', async ({page}) => {
 
     await page.getByRole('textbox', { name: 'email@example.com' }).fill('incorrectuser@g.com');
     await page.getByRole('textbox', { name: 'enter your passsword' }).fill('admin###123');
