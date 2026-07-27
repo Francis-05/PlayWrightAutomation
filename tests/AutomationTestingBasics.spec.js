@@ -14,7 +14,6 @@ test('TC-POS-01: Verify successfull login with valid credentials', async ({page}
 
     await expect(page).toHaveURL('https://rahulshettyacademy.com/client/#/dashboard/dash');
 
-    console.log("Test Run Success");
 });
 
 //login feature (negative cases)
@@ -29,7 +28,6 @@ test('TC-POS-02: Verify error message for login with unregistered email', async 
     await expect(errorMessage).toBeVisible();
     await expect(errorMessage).toHaveText('Incorrect email or password.');
 
-    console.log("Test Run Success");
 });
 
 test('TC-POS-03: Verify error message for login with incorrect password', async ({page}) => {
@@ -43,7 +41,6 @@ test('TC-POS-03: Verify error message for login with incorrect password', async 
     await expect(errorMessage).toBeVisible();
     await expect(errorMessage).toHaveText('Incorrect email or password.');
 
-    console.log("Test Run Success");
 });
 
 test('TC-POS-04: Verify error message for login with invalid email format', async ({page}) => {
@@ -53,7 +50,6 @@ test('TC-POS-04: Verify error message for login with invalid email format', asyn
     await page.getByRole('button', { name: 'Login' }).click();
     await expect(page.locator('.invalid-feedback').first()).toHaveText('*Enter Valid Email');
 
-    console.log("Test Run Success");
 });
 
 test('TC-POS-05: Verify error message for empty login fields', async ({page}) => {
@@ -62,7 +58,6 @@ test('TC-POS-05: Verify error message for empty login fields', async ({page}) =>
     await expect(page.locator('.invalid-feedback').nth(0)).toHaveText('*Email is required');
     await expect(page.locator('.invalid-feedback').nth(1)).toHaveText('*Password is required');
 
-    console.log("Test Run Success");
 });
 
 test('TC-POS-06: Verify error message for empty email with filled password', async ({page}) => {
@@ -72,7 +67,6 @@ test('TC-POS-06: Verify error message for empty email with filled password', asy
     await page.getByRole('button', { name: 'Login' }).click();
     await expect(page.locator('.invalid-feedback')).toHaveText('*Email is required');
 
-    console.log("Test Run Success");
 });
 
 test('TC-POS-07: Verify error message for empty password with filled email', async ({page}) => {
@@ -82,7 +76,6 @@ test('TC-POS-07: Verify error message for empty password with filled email', asy
     await page.getByRole('button', { name: 'Login' }).click();
     await expect(page.locator('.invalid-feedback')).toHaveText('*Password is required');
 
-    console.log("Test Run Success");
 });
 
 //login feature (UI and Placeholder Validation)
@@ -91,14 +84,12 @@ test('TC-POS-08: Verify placeholder wording is correct', async ({page}) => {
     await expect(page.locator('.form-control').nth(0)).toHaveAttribute('placeholder','email@example.com');
     await expect(page.locator('.form-control').nth(1)).toHaveAttribute('placeholder', 'enter your passsword');
 
-    console.log("Test Run Success");
 });
 
 test('TC-POS-09: Verify password field is masked when character is inputted', async ({page}) => {
 
     await expect(page.locator('[type="password"]')).toHaveAttribute('type', 'password');
 
-    console.log("Test Run Success");
 });
 
 //login feature (Navigation and link functionality)
@@ -107,7 +98,6 @@ test('TC-POS-10: Verify if redirected successfully when forgot password link is 
     await page.getByRole('link', { name: 'Forgot password?' }).click();
     await expect(page).toHaveURL('https://rahulshettyacademy.com/client/#/auth/password-new');
 
-    console.log("Test Run Success");
 });
 
 test('TC-POS-11: Verify if redirected successfully when register here link is clicked', async ({page}) => {
@@ -115,5 +105,4 @@ test('TC-POS-11: Verify if redirected successfully when register here link is cl
     await page.getByText('Don\'t have an account?').click();
     await expect(page).toHaveURL('https://rahulshettyacademy.com/client/#/auth/register');
 
-    console.log("Test Run Success");
 });
