@@ -23,8 +23,8 @@ test.only('TC-POS-02: Verify error message for login with unregistered email', a
     await page.getByRole('textbox', { name: 'email@example.com' }).fill('incorrectuser@g.com');
     await page.getByRole('textbox', { name: 'enter your passsword' }).fill('admin###123');
     await page.getByRole('button', { name: 'Login' }).click();
-    // await expect(page.getByRole('alert', { name: 'Incorrect email or passssword.' })).toBeVisible();
-
+    
+//allert pop up message
     const errorMessage = page.locator('#toast-container');
     await expect(errorMessage).toBeVisible();
     await expect(errorMessage).toHaveText('Incorrect email or password.');
