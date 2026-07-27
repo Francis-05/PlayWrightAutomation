@@ -21,6 +21,10 @@ class loginPage {
         await this.loginButton.click();
     }
 
+    async toastErrorMessage (floatError){
+        await expect(this.toastMessage).toHaveText(floatError);
+    }
+
     async clickLogin () {
         await this.loginButton.click();
     }
@@ -33,4 +37,5 @@ class loginPage {
         await this.registerLink();
     }
 }
+
 module.exports = { loginPage };

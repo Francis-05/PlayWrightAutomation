@@ -1,26 +1,29 @@
 const {test, expect} = require('@playwright/test');
+const {loginPage} = require ('../pages/loginPage.spec.js');
+const testData = require ('../data/loginData.spec.js');
+const { log } = require('node:console');
+
+let loginP;
 
 test.beforeEach(async ({ page }) => {
+    loginP = new loginPage(page);
     await page.goto('https://rahulshettyacademy.com/client/#/auth/login');
 });
 
 //login feature (happy path cases)
 test('TC-POS-01: Verify successfull login with valid credentials', async ({page}) => {
 
-    await page.getByRole('textbox', { name: 'email@example.com' }).fill('franz.rose225@gmail.com');
-    await page.getByRole('textbox', { name: 'enter your passsword' }).fill('admin###123');
-    await page.getByRole('button', { name: 'Login' }).click();
+    await loginP.login(testData.validUser.email, testData.validUser.password);
     await expect(page).toHaveURL('https://rahulshettyacademy.com/client/#/dashboard/dash');
 
 });
 
 //login feature (negative cases)
-test('TC-POS-02: Verify error message for login with unregistered email', async ({page}) => {
+test.only('TC-POS-02: Verify error message for login with unregistered email', async ({page}) => {
 
-    await page.getByRole('textbox', { name: 'email@example.com' }).fill('incorrectuser@g.com');
-    await page.getByRole('textbox', { name: 'enter your passsword' }).fill('admin###123');
-    await page.getByRole('button', { name: 'Login' }).click();
-    await expect(page.locator('#toast-container')).toHaveText('Incorrect email or password.');
+    await loginP.login(testData.unregisteredUser.email, testData.unregisteredUser.password);
+    await loginP.clickLogin();
+    await loginP.toastErrorMessage(testData.errorMessage.floatError);
 
 });
 
