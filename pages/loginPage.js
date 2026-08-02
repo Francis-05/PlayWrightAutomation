@@ -10,19 +10,26 @@ class loginPage {
         this.passwordInput = page.getByRole('textbox', { name: 'enter your passsword' });
         this.loginButton = page.getByRole('button', {name: 'Login'});
         this.toastMessage = page.locator('#toast-container');
-        this.invalidFeedbacks = page.locator('.invalid-feedback');
+        this.invalidEmail = page.locator('div[class=\'invalid-feedback\'] div');
+        this.emailError = page.locator('div[class=\'form-group\'] div[class=\'invalid-feedback\'] div');
+        this.passwordError = page.locator('div[class=\'form-group mb-4\'] div[class=\'invalid-feedback\'] div');
         this.forgotPassword = page.getByRole('link', {name: 'Forgot password'});
         this.registerLink = page.getByText('Don\'t have an account?');
+        this.emailPlaceholder = page.locator('#userEmail');
+        this.passwordPlaceholder = page.locator('#userPassword');
     }
 
     async login (email, password) {
         await this.emailInput.fill(email);
         await this.passwordInput.fill(password);
-        await this.loginButton.click();
     }
 
-    async toastErrorMessage (floatError){
-        await expect(this.toastMessage).toHaveText(floatError);
+    async emailInputValue (email) {
+        await this.emailInput.fill(email);
+    }
+
+    async passwordInputValue (password) {
+        await this.passwordInput.fill(password);
     }
 
     async clickLogin () {
@@ -36,6 +43,7 @@ class loginPage {
     async clickRegister () {
         await this.registerLink();
     }
+
 }
 
 module.exports = { loginPage };
