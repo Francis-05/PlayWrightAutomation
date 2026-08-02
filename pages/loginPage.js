@@ -41,7 +41,7 @@ class loginPage {
     }
 
     async clickRegister () {
-        await this.registerLink();
+        await this.registerLink.click();
     }
 
 }
