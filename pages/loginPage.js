@@ -1,4 +1,3 @@
-const {test, expect} = require('@playwright/test');
 
 class loginPage {
     constructor(page) {
@@ -15,11 +14,16 @@ class loginPage {
         this.passwordError = page.locator('div[class=\'form-group mb-4\'] div[class=\'invalid-feedback\'] div');
         this.forgotPassword = page.getByRole('link', {name: 'Forgot password'});
         this.registerLink = page.getByText('Don\'t have an account?');
-        this.emailPlaceholder = page.locator('#userEmail');
-        this.passwordPlaceholder = page.locator('#userPassword');
+
     }
 
     async login (email, password) {
+        await this.emailInput.fill(email);
+        await this.passwordInput.fill(password);
+        await this.loginButton.click();
+    }
+
+    async fillLoginForm (email, password) {
         await this.emailInput.fill(email);
         await this.passwordInput.fill(password);
     }

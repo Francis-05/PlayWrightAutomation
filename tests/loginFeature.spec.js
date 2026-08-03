@@ -8,30 +8,29 @@ let loginP;
 
 test.beforeEach(async ({ page }) => {
     loginP = new loginPage(page);
-    await page.goto('https://rahulshettyacademy.com/client/#/auth/login');
+    await page.goto(baseUrls.loginPageURL.url);
 });
 
 //login feature (happy path cases)
 test('TC-POS-01: Verify successfull login with valid credentials', async ({page}) => {
 
     await loginP.login(testData.validUser.email, testData.validUser.password);
-    await loginP.clickLogin();
-    await expect(page).toHaveURL('https://rahulshettyacademy.com/client/#/dashboard/dash');
+    await expect(page).toHaveURL(baseUrls.dashboardURL.url);
 
 });
 
 //login feature (negative cases)
-test('TC-POS-02: Verify error message for login with unregistered email', async ({page}) => {
+test('TC-NEG-02: Verify error message for login with unregistered email', async ({page}) => {
 
-    await loginP.login(testData.unregisteredUser.email, testData.unregisteredUser.password);
+    await loginP.fillLoginForm(testData.unregisteredUser.email, testData.unregisteredUser.password);
     await loginP.clickLogin();
     await expect(loginP.toastMessage).toHaveText(testData.errorMessage.floatError);
 
 });
 
-test('TC-POS-03: Verify error message for login with incorrect password', async ({page}) => {
+test('TC-NEG-03: Verify error message for login with incorrect password', async ({page}) => {
 
-    await loginP.login(testData.invalidPasswordUser.email, testData.invalidPasswordUser.password);
+    await loginP.fillLoginForm(testData.invalidPasswordUser.email, testData.invalidPasswordUser.password);
     await loginP.clickLogin();
     await expect(loginP.toastMessage).toHaveText(testData.errorMessage.floatError);
 
@@ -39,7 +38,7 @@ test('TC-POS-03: Verify error message for login with incorrect password', async 
 
 test('TC-POS-04: Verify error message for login with invalid email format', async ({page}) => {
 
-    await loginP.login(testData.invalidEmailFormat.email, testData.invalidEmailFormat.password);
+    await loginP.fillLoginForm(testData.invalidEmailFormat.email, testData.invalidEmailFormat.password);
     await loginP.clickLogin();
     await expect(loginP.invalidEmail).toHaveText(testData.feedbackErrors.emailInvalid);
 
@@ -74,8 +73,8 @@ test('TC-POS-07: Verify error message for empty password with filled email', asy
 //login feature (UI and Placeholder Validation)
 test('TC-POS-08: Verify placeholder wording is correct', async ({page}) => {
 
-    await expect(loginP.emailPlaceholder).toHaveAttribute('placeholder', testData.loginPlaceholders.email);
-    await expect(loginP.passwordPlaceholder).toHaveAttribute('placeholder', testData.loginPlaceholders.password);
+    await expect(loginP.emailInput).toHaveAttribute('placeholder', testData.loginPlaceholders.email);
+    await expect(loginP.passwordInput).toHaveAttribute('placeholder', testData.loginPlaceholders.password);
 
 });
 
