@@ -1,12 +1,12 @@
 module.exports = {
     validUser: {
         email: "franz.rose225@gmail.com",
-        password: "admin###123"
+        password: "admin###123",
     },
 
     unregisteredUser: {
         email: "incorrectuser@g.com",
-        password: "admin###123"
+        password: "admin###123",
     },
 
     invalidPasswordUser: {
@@ -16,7 +16,7 @@ module.exports = {
 
     invalidEmailFormat: {
         email: "franz.rose225@@@gmail.com",
-        password: "admin###123"
+        password: "admin###123",
     },
 
     errorMessage: {
