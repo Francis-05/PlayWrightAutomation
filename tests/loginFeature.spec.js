@@ -1,8 +1,8 @@
 const {test, expect} = require('@playwright/test');
 const {loginPage} = require ('../pages/loginPage.js');
+const messages = require('../constants/loginMessages.js');
 const testData = require ('../data/loginData.js');
 const baseUrls = require ('../data/urls.js');
-const { log } = require('node:console');
 
 let loginP;
 
@@ -24,7 +24,7 @@ test('TC-NEG-02: Verify error message for login with unregistered email', async 
 
     await loginP.fillLoginForm(testData.unregisteredUser.email, testData.unregisteredUser.password);
     await loginP.clickLogin();
-    await expect(loginP.toastMessage).toHaveText(testData.errorMessage.floatError);
+    await expect(loginP.toastMessage).toHaveText(messages.containerMessages.floatError);
 
 });
 
@@ -32,7 +32,7 @@ test('TC-NEG-03: Verify error message for login with incorrect password', async 
 
     await loginP.fillLoginForm(testData.invalidPasswordUser.email, testData.invalidPasswordUser.password);
     await loginP.clickLogin();
-    await expect(loginP.toastMessage).toHaveText(testData.errorMessage.floatError);
+    await expect(loginP.toastMessage).toHaveText(messages.containerMessages.floatError);
 
 });
 
@@ -40,7 +40,7 @@ test('TC-POS-04: Verify error message for login with invalid email format', asyn
 
     await loginP.fillLoginForm(testData.invalidEmailFormat.email, testData.invalidEmailFormat.password);
     await loginP.clickLogin();
-    await expect(loginP.invalidEmail).toHaveText(testData.feedbackErrors.emailInvalid);
+    await expect(loginP.invalidEmail).toHaveText(messages.errorMesages.emailInvalid);
 
 });
 
@@ -48,7 +48,7 @@ test('TC-POS-05: Verify error message for empty login fields', async ({page}) =>
 
     await loginP.clickLogin();
     await expect(loginP.emailError).toHaveText(testData.feedbackErrors.emailError);
-    await expect(loginP.passwordError).toHaveText(testData.feedbackErrors.passwordError);
+    await expect(loginP.passwordError).toHaveText(messages.errorMesages.passwordError);
 
 });
 
@@ -57,7 +57,7 @@ test('TC-POS-06: Verify error message for empty email with filled password', asy
     await expect(loginP.emailInput).toHaveValue('');
     await loginP.passwordInputValue(testData.validUser.password);
     await loginP.clickLogin();
-    await expect(loginP.emailError).toHaveText(testData.feedbackErrors.emailError);
+    await expect(loginP.emailError).toHaveText(messages.errorMesages.emailError);
 
 });
 
@@ -66,7 +66,7 @@ test('TC-POS-07: Verify error message for empty password with filled email', asy
     await loginP.emailInputValue(testData.validUser.email);
     await expect(loginP.passwordInput).toHaveValue('');
     await loginP.clickLogin();
-    await expect(loginP.passwordError).toHaveText(testData.feedbackErrors.passwordError);
+    await expect(loginP.passwordError).toHaveText(messages.errorMesages.passwordError);
 
 });
 

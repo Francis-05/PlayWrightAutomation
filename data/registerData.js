@@ -1,8 +1,11 @@
+const randomEmail = `test${Date.now()}${Math.floor(Math.random() * 1000)}@g.com`;
+
 module.exports = {
+
     regfieldCredentials : {
         fname: "John",
         lname: "Doe",
-        email: "test102@g.com",
+        email: randomEmail,
         phoneNum: "1234567890",
         password: "Admin#123",
         confirmPass: "Admin#123",

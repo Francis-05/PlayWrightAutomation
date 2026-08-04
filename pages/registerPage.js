@@ -14,18 +14,24 @@ class registerPage {
         this.confirmPass = page.getByRole('textbox', { name: 'Confirm Password' });
         this.confirmCheckbox = page.getByRole('checkbox');
         this.registerButton = page.getByRole('button', { name: 'Register' });
+        this.loginBtn = page.getByRole('button', { name: 'Login' });
+        this.successContainer = page.locator('#toast-container');
     }
     
-    async registerUser (fname, lname, email, phoneNum, password, confirmPass, occupation1) {
-        await this.firstname.fill(fname);;
+    async registerUser (fname, lname, email, phoneNum, occupation1, password, confirmPass) {
+        await this.firstname.fill(fname);
         await this.lastname.fill(lname);
-        await this.email.fill(email);;
+        await this.email.fill(email);
         await this.phoneNumber.fill(phoneNum);
         await this.occupationDrop.selectOption({label: occupation1});
         await this.genderMale.click();
         await this.password.fill(password);
         await this.confirmPass.fill(confirmPass);
         await this.confirmCheckbox.click();
+        await this.registerButton.click();
+    }
+    async clickLoginBtn() {
+        await this.loginBtn.click();
     }
 
 }
