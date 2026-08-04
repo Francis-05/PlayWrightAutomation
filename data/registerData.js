@@ -18,4 +18,9 @@ module.exports = {
         occupation4: "Scientist",
     },
 
+    passwordMismatch: {
+        password: "Admin#123",
+        confirmPass: "Admin#1234",
+    }
+
 };

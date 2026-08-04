@@ -4,7 +4,7 @@ module.exports = {
         floatError: "Incorrect email or password.",
     },
 
-    errorMesages: {
+    errorMessages: {
         emailInvalid: "*Enter Valid Email",
         emailError : "*Email is required",
         passwordError : "*Password is required",

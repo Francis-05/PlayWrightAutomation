@@ -40,7 +40,7 @@ test('TC-POS-04: Verify error message for login with invalid email format', asyn
 
     await loginP.fillLoginForm(testData.invalidEmailFormat.email, testData.invalidEmailFormat.password);
     await loginP.clickLogin();
-    await expect(loginP.invalidEmail).toHaveText(messages.errorMesages.emailInvalid);
+    await expect(loginP.invalidEmail).toHaveText(messages.errorMessages.emailInvalid);
 
 });
 
@@ -48,7 +48,7 @@ test('TC-POS-05: Verify error message for empty login fields', async ({page}) =>
 
     await loginP.clickLogin();
     await expect(loginP.emailError).toHaveText(messages.errorMesages.emailError);
-    await expect(loginP.passwordError).toHaveText(messages.errorMesages.passwordError);
+    await expect(loginP.passwordError).toHaveText(messages.errorMessages.passwordError);
 
 });
 
@@ -57,7 +57,7 @@ test('TC-POS-06: Verify error message for empty email with filled password', asy
     await expect(loginP.emailInput).toHaveValue('');
     await loginP.passwordInputValue(testData.validUser.password);
     await loginP.clickLogin();
-    await expect(loginP.emailError).toHaveText(messages.errorMesages.emailError);
+    await expect(loginP.emailError).toHaveText(messages.errorMessages.emailError);
 
 });
 
@@ -66,7 +66,7 @@ test('TC-POS-07: Verify error message for empty password with filled email', asy
     await loginP.emailInputValue(testData.validUser.email);
     await expect(loginP.passwordInput).toHaveValue('');
     await loginP.clickLogin();
-    await expect(loginP.passwordError).toHaveText(messages.errorMesages.passwordError);
+    await expect(loginP.passwordError).toHaveText(messages.errorMessages.passwordError);
 
 });
 

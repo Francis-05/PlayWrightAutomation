@@ -2,7 +2,7 @@ class registerPage {
     constructor (page) {
         this.page = page;
 
-        //register page locators
+        //register page locators for fields and buttons
         this.firstname = page.getByRole('textbox', { name: 'First Name' });
         this.lastname = page.getByRole('textbox', { name: 'Last Name' });
         this.email = page.getByRole('textbox', { name: 'email@example.com' });
@@ -16,6 +16,8 @@ class registerPage {
         this.registerButton = page.getByRole('button', { name: 'Register' });
         this.loginBtn = page.getByRole('button', { name: 'Login' });
         this.successContainer = page.locator('#toast-container');
+        this.textFieldError = page.locator(".invalid-feedback");
+        this.checkBoxError = page.getByText('*Please check above checkbox');
     }
     
     async registerUser (fname, lname, email, phoneNum, occupation1, password, confirmPass) {
@@ -30,6 +32,29 @@ class registerPage {
         await this.confirmCheckbox.click();
         await this.registerButton.click();
     }
+
+    async fillMandatoryFields (fname, lname, email, phoneNum, occupation1, password, confirmPass) {
+        await this.firstname.fill(fname);
+        await this.lastname.fill(lname);
+        await this.email.fill(email);
+        await this.phoneNumber.fill(phoneNum);
+        await this.occupationDrop.selectOption({label: occupation1});
+        await this.genderMale.click();
+    }
+
+    async clickCheckbox () {
+        await this.confirmCheckbox.click();
+    }
+
+    async passwordMismatch (password, confirmpass){
+        await this.password.fill(password);
+        await this.confirmPass.fill(confirmpass);
+    }
+
+    async clickRegisterBtn () {
+        await this.registerButton.click();
+    }
+
     async clickLoginBtn() {
         await this.loginBtn.click();
     }
