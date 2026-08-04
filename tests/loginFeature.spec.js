@@ -47,7 +47,7 @@ test('TC-POS-04: Verify error message for login with invalid email format', asyn
 test('TC-POS-05: Verify error message for empty login fields', async ({page}) => {
 
     await loginP.clickLogin();
-    await expect(loginP.emailError).toHaveText(testData.feedbackErrors.emailError);
+    await expect(loginP.emailError).toHaveText(messages.errorMesages.emailError);
     await expect(loginP.passwordError).toHaveText(messages.errorMesages.passwordError);
 
 });
