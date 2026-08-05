@@ -32,7 +32,7 @@ test('TC-NEG-02: Verify if registration fail for mistmacth pass and confirm pass
 
 });
 
-test.only('TC-NEG-03: Verify validation errors for empty madatory fields', async ({page}) => {
+test('TC-NEG-03: Verify validation errors for empty madatory fields', async ({page}) => {
 
     await expect(registerP.firstname).toHaveValue('');
     await expect(registerP.lastname).toHaveValue('');

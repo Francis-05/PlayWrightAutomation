@@ -1,4 +1,5 @@
 module.exports = {
+    
     validUser: {
         email: "franz.rose225@gmail.com",
         password: "admin###123",

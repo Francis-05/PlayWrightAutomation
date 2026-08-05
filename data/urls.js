@@ -1,4 +1,5 @@
 module.exports = {
+    
     forgotPasswordURL: {
         url: 'https://rahulshettyacademy.com/client/#/auth/password-new',
     },

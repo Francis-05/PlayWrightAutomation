@@ -1,16 +1,16 @@
-class loginPage {
+const { basePage } = require('./basePage.js');
+
+class loginPage extends basePage {
     constructor(page) {
-        this.page = page;
+        super(page);
 
         //login feature locators
-        
         this.emailInput = page.getByRole('textbox', { name: 'email@example.com' });
         this.passwordInput = page.getByRole('textbox', { name: 'enter your passsword' });
         this.loginButton = page.getByRole('button', {name: 'Login'});
-        this.toastMessage = page.locator('#toast-container');
-        this.invalidEmail = page.locator('div[class=\'invalid-feedback\'] div');
-        this.emailError = page.locator('div[class=\'form-group\'] div[class=\'invalid-feedback\'] div');
-        this.passwordError = page.locator('div[class=\'form-group mb-4\'] div[class=\'invalid-feedback\'] div');
+        this.invalidEmail = page.getByText('*Enter Valid Email');
+        this.emailError = page.getByText('*Email is required');
+        this.passwordError = page.getByText('*Password is required');
         this.forgotPassword = page.getByRole('link', {name: 'Forgot password'});
         this.registerLink = page.getByText('Don\'t have an account?');
 
