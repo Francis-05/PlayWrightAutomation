@@ -19,9 +19,4 @@ module.exports = {
         password: "admin###123",
     },
 
-    loginPlaceholders: {
-        email: "email@example.com",
-        password: "enter your passsword",
-    }
-
 };

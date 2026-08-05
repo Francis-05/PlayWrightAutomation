@@ -36,7 +36,7 @@ test('TC-NEG-03: Verify error message for login with incorrect password', async 
 
 });
 
-test('TC-POS-04: Verify error message for login with invalid email format', async ({page}) => {
+test('TC-NEG-04: Verify error message for login with invalid email format', async ({page}) => {
 
     await loginP.fillLoginForm(testData.invalidEmailFormat.email, testData.invalidEmailFormat.password);
     await loginP.clickLogin();
@@ -44,15 +44,15 @@ test('TC-POS-04: Verify error message for login with invalid email format', asyn
 
 });
 
-test('TC-POS-05: Verify error message for empty login fields', async ({page}) => {
+test('TC-NEG-05: Verify error message for empty login fields', async ({page}) => {
 
     await loginP.clickLogin();
-    await expect(loginP.emailError).toHaveText(messages.errorMesages.emailError);
+    await expect(loginP.emailError).toHaveText(messages.errorMessages.emailError);
     await expect(loginP.passwordError).toHaveText(messages.errorMessages.passwordError);
 
 });
 
-test('TC-POS-06: Verify error message for empty email with filled password', async ({page}) => {
+test('TC-NEG-06: Verify error message for empty email with filled password', async ({page}) => {
 
     await expect(loginP.emailInput).toHaveValue('');
     await loginP.passwordInputValue(testData.validUser.password);
@@ -61,7 +61,7 @@ test('TC-POS-06: Verify error message for empty email with filled password', asy
 
 });
 
-test('TC-POS-07: Verify error message for empty password with filled email', async ({page}) => {
+test('TC-NEG-07: Verify error message for empty password with filled email', async ({page}) => {
 
     await loginP.emailInputValue(testData.validUser.email);
     await expect(loginP.passwordInput).toHaveValue('');
