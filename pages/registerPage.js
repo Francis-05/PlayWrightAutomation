@@ -1,6 +1,8 @@
-class registerPage {
+const { basePage } = require('./basePage.js');
+
+class registerPage extends basePage {
     constructor (page) {
-        this.page = page;
+        super(page);
 
         //register page locators for fields and buttons
         this.firstname = page.getByRole('textbox', { name: 'First Name' });
@@ -15,8 +17,12 @@ class registerPage {
         this.confirmCheckbox = page.getByRole('checkbox');
         this.registerButton = page.getByRole('button', { name: 'Register' });
         this.loginBtn = page.getByRole('button', { name: 'Login' });
-        this.successContainer = page.locator('#toast-container');
-        this.textFieldError = page.locator(".invalid-feedback");
+        this.fnameFieldError = page.locator('div.form-group', {has: this.firstname}).locator('div.invalid-feedback div');
+        this.lnameFieldError = page.locator('div.form-group', {has: this.lastname}).locator('div.invalid-feedback div');
+        this.emailFieldError = page.locator('div.form-group', {has: this.email}).locator('div.invalid-feedback div');
+        this.phoneNumFieldError = page.locator('div.form-group', {has: this.phoneNumber}).locator('div.invalid-feedback div');
+        this.passFieldError = page.locator('div.form-group', {has: this.password}).locator('div.invalid-feedback div');
+        this.confirmpassFieldError = page.locator('div.form-group', {has: this.confirmPass}).locator('div.invalid-feedback div');
         this.checkBoxError = page.getByText('*Please check above checkbox');
     }
     
@@ -27,6 +33,32 @@ class registerPage {
         await this.phoneNumber.fill(phoneNum);
         await this.occupationDrop.selectOption({label: occupation1});
         await this.genderMale.click();
+        await this.password.fill(password);
+        await this.confirmPass.fill(confirmPass);
+        await this.confirmCheckbox.click();
+        await this.registerButton.click();
+    }
+
+    async radioGenderMale (fname, lname, email, phoneNum, occupation1, password, confirmPass) {
+        await this.firstname.fill(fname);
+        await this.lastname.fill(lname);
+        await this.email.fill(email);
+        await this.phoneNumber.fill(phoneNum);
+        await this.occupationDrop.selectOption({label: occupation1});
+        await this.genderMale.click();
+        await this.password.fill(password);
+        await this.confirmPass.fill(confirmPass);
+        await this.confirmCheckbox.click();
+        await this.registerButton.click();
+    }
+
+    async radioGenderFemale (fname, lname, email, phoneNum, occupation1, password, confirmPass) {
+        await this.firstname.fill(fname);
+        await this.lastname.fill(lname);
+        await this.email.fill(email);
+        await this.phoneNumber.fill(phoneNum);
+        await this.occupationDrop.selectOption({label: occupation1});
+        await this.genderFemale.click();
         await this.password.fill(password);
         await this.confirmPass.fill(confirmPass);
         await this.confirmCheckbox.click();
