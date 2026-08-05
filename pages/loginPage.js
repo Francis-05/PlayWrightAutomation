@@ -8,9 +8,8 @@ class loginPage extends basePage {
         this.emailInput = page.getByRole('textbox', { name: 'email@example.com' });
         this.passwordInput = page.getByRole('textbox', { name: 'enter your passsword' });
         this.loginButton = page.getByRole('button', {name: 'Login'});
-        this.invalidEmail = page.getByText('*Enter Valid Email');
-        this.emailError = page.getByText('*Email is required');
-        this.passwordError = page.getByText('*Password is required');
+        this.emailFieldError = page.locator('div.form-group', {has: this.emailInput}).locator('div.invalid-feedback div');
+        this.passwordFieldError = page.locator('div.form-group', {has: this.passwordInput}).locator('div.invalid-feedback div');
         this.forgotPassword = page.getByRole('link', {name: 'Forgot password'});
         this.registerLink = page.getByText('Don\'t have an account?');
 

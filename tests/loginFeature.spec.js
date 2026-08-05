@@ -28,7 +28,7 @@ test.describe('Login Feature', () => {
     //login feature (negative cases)
     test.describe('Negative TestCases', () => {
 
-        test('TC-NEG-02: Verify error message for login with unregistered email', async ({page}) => {
+        test('TC-NEG-01: Verify error message for login with unregistered email', async ({page}) => {
 
             await loginP.fillLoginForm(testData.unregisteredUser.email, testData.unregisteredUser.password);
             await loginP.clickLogin();
@@ -36,7 +36,7 @@ test.describe('Login Feature', () => {
 
         });
 
-        test('TC-NEG-03: Verify error message for login with incorrect password', async ({page}) => {
+        test('TC-NEG-02: Verify error message for login with incorrect password', async ({page}) => {
 
             await loginP.fillLoginForm(testData.invalidPasswordUser.email, testData.invalidPasswordUser.password);
             await loginP.clickLogin();
@@ -44,37 +44,37 @@ test.describe('Login Feature', () => {
 
         });
 
-        test('TC-NEG-04: Verify error message for login with invalid email format', async ({page}) => {
+        test('TC-NEG-03: Verify error message for login with invalid email format', async ({page}) => {
 
             await loginP.fillLoginForm(testData.invalidEmailFormat.email, testData.invalidEmailFormat.password);
             await loginP.clickLogin();
-            await expect(loginP.invalidEmail).toHaveText(messages.errorMessages.emailInvalid);
+            await expect(loginP.emailFieldError).toHaveText(messages.errorMessages.emailInvalid);
 
         });
 
-        test('TC-NEG-05: Verify error message for empty login fields', async ({page}) => {
+        test('TC-NEG-04: Verify error message for empty login fields', async ({page}) => {
 
             await loginP.clickLogin();
-            await expect(loginP.emailError).toHaveText(messages.errorMessages.emailError);
-            await expect(loginP.passwordError).toHaveText(messages.errorMessages.passwordError);
+            await expect(loginP.emailFieldError).toHaveText(messages.errorMessages.emailError);
+            await expect(loginP.passwordFieldError).toHaveText(messages.errorMessages.passwordError);
 
         });
 
-        test('TC-NEG-06: Verify error message for empty email with filled password', async ({page}) => {
+        test('TC-NEG-05: Verify error message for empty email with filled password', async ({page}) => {
 
             await expect(loginP.emailInput).toHaveValue('');
             await loginP.passwordInputValue(testData.validUser.password);
             await loginP.clickLogin();
-            await expect(loginP.emailError).toHaveText(messages.errorMessages.emailError);
+            await expect(loginP.emailFieldError).toHaveText(messages.errorMessages.emailError);
 
         });
 
-        test('TC-NEG-07: Verify error message for empty password with filled email', async ({page}) => {
+        test('TC-NEG-06: Verify error message for empty password with filled email', async ({page}) => {
 
             await loginP.emailInputValue(testData.validUser.email);
             await expect(loginP.passwordInput).toHaveValue('');
             await loginP.clickLogin();
-            await expect(loginP.passwordError).toHaveText(messages.errorMessages.passwordError);
+            await expect(loginP.passwordFieldError).toHaveText(messages.errorMessages.passwordError);
 
         });
 
@@ -101,14 +101,14 @@ test.describe('Login Feature', () => {
     //login feature (Navigation and link functionality)
     test.describe('Navigation and Link Functionality', () => {
         
-        test('TC-POS-10: Verify if redirected successfully when forgot password link is clicked', async ({page}) => {
+        test('TC-NAV-01: Verify if redirected successfully when forgot password link is clicked', async ({page}) => {
 
             await loginP.clickForgotPassword();
             await expect(page).toHaveURL(baseUrls.forgotPasswordURL.url);
 
         });
 
-        test('TC-POS-11: Verify if redirected successfully when register here link is clicked', async ({page}) => {
+        test('TC-NAV-02: Verify if redirected successfully when register here link is clicked', async ({page}) => {
 
             await loginP.clickRegister();
             await expect(page).toHaveURL(baseUrls.registerURL.url);
