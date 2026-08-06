@@ -17,7 +17,6 @@ test.describe('Register Feature', () => {
 
     //register feature (happy path testcase)
     test.describe('Happy Path TestCase', () => {
-
         test('TC-POS-01: Verify if user can register account successfully', async ({page}) => {
             await registerP.registerUser(
                 testData.regfieldCredentials.fname, 
@@ -89,6 +88,8 @@ test.describe('Register Feature', () => {
             await expect(registerP.confirmpassFieldError).toHaveText(messages.errorMessages.requiredConfirmpass);
             await expect(registerP.checkBoxError).toHaveText(messages.errorMessages.checkboxError);
         });
+
+        
        
     });
 
