@@ -24,6 +24,11 @@ module.exports = {
     passwordMismatch: {
         password: "Admin#123",
         confirmPass: "Admin#1234",
-    }
+    },
+
+    regGender: {
+        male: "Male",
+        female: "Female",
+    },
 
 };

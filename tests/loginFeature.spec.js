@@ -19,7 +19,6 @@ test.describe('Login Feature', () => {
             await loginP.login(testData.validUser.email, testData.validUser.password);
             await expect(page).toHaveURL(baseUrls.dashboardURL.url);
         });
-
     });
 
     //login feature (negative cases)
@@ -61,7 +60,6 @@ test.describe('Login Feature', () => {
             await loginP.clickLogin();
             await expect(loginP.passwordFieldError).toHaveText(messages.errorMessages.passwordError);
         });
-
     });
 
     //login feature (UI and Placeholder Validation)
@@ -88,7 +86,5 @@ test.describe('Login Feature', () => {
             await loginP.clickRegister();
             await expect(page).toHaveURL(baseUrls.registerURL.url);
         });
-
     });
-
 });

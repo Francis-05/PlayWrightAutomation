@@ -71,9 +71,7 @@ test.describe('Register Feature', () => {
                     testData.regfieldCredentials.confirmPass);
                 await expect(registerP.toastMessage).toHaveText(messages.containerMessages.floatSuccess);
             });
-
         });
-
     });
 
     //register feature (negative testcases)
@@ -89,8 +87,21 @@ test.describe('Register Feature', () => {
             await expect(registerP.checkBoxError).toHaveText(messages.errorMessages.checkboxError);
         });
 
+        test.only('TC-NEG-02: Verify validation error for empty Firstname', async ({page}) => {
+            await expect(registerP.firstname).toHaveValue('');
+            await registerP.lastname.fill(testData.regfieldCredentials.lname);
+            await registerP.email.fill(testData.generateUniqueEmail());
+            await registerP.phoneNumber.fill(testData.regfieldCredentials.phoneNum);
+            await registerP.selectOccupation(testData.regdropdownOccupation.doctor);
+            await registerP.selectGender(testData.regGender.male);
+            await registerP.password.fill(testData.regfieldCredentials.password);
+            await registerP.confirmPass.fill(testData.regfieldCredentials.confirmPass);
+            await registerP.clickCheckbox();
+            await registerP.clickRegisterBtn();
+            await expect(registerP.fnameFieldError).toHaveText(messages.errorMessages.requiredFname);
+            console.log('Success');
+        });
         
        
     });
-
 });
