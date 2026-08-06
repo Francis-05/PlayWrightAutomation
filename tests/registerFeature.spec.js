@@ -87,7 +87,7 @@ test.describe('Register Feature', () => {
             await expect(registerP.checkBoxError).toHaveText(messages.errorMessages.checkboxError);
         });
 
-        test.only('TC-NEG-02: Verify validation error for empty Firstname', async ({page}) => {
+        test('TC-NEG-02: Verify validation error for empty Firstname', async ({page}) => {
             await expect(registerP.firstname).toHaveValue('');
             await registerP.lastname.fill(testData.regfieldCredentials.lname);
             await registerP.email.fill(testData.generateUniqueEmail());
