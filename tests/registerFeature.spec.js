@@ -12,6 +12,7 @@ test.describe('Register Feature', () => {
     test.beforeEach(async ({page}) => {
         registerP = new registerPage(page);
         await registerP.goto(baseUrls.registerURL.url);
+        await page.waitForLoadState('networkidle');
     });
 
     //register feature (happy path testcase)
@@ -21,9 +22,10 @@ test.describe('Register Feature', () => {
             await registerP.registerUser(
                 testData.regfieldCredentials.fname, 
                 testData.regfieldCredentials.lname, 
-                testData.regfieldCredentials.email, 
+                testData.generateUniqueEmail(), 
                 testData.regfieldCredentials.phoneNum, 
-                testData.regdropdownOccupation.occupation1, 
+                testData.regdropdownOccupation.doctor,
+                'Male', 
                 testData.regfieldCredentials.password, 
                 testData.regfieldCredentials.confirmPass);
             await expect(registerP.toastMessage).toHaveText(messages.containerMessages.floatSuccess);
@@ -32,24 +34,26 @@ test.describe('Register Feature', () => {
         });
 
         test('TC-POS-02: Verify if user register successfully with "Male" gender selected', async ({page}) => {
-            await registerP.radioGenderMale(
+            await registerP.registerUser(
                 testData.regfieldCredentials.fname, 
                 testData.regfieldCredentials.lname, 
-                testData.regfieldCredentials.email, 
+                testData.generateUniqueEmail(), 
                 testData.regfieldCredentials.phoneNum, 
-                testData.regdropdownOccupation.occupation1, 
+                testData.regdropdownOccupation.student,
+                'Male',
                 testData.regfieldCredentials.password, 
                 testData.regfieldCredentials.confirmPass);
             await expect(registerP.toastMessage).toHaveText(messages.containerMessages.floatSuccess);
         });
 
         test('TC-POS-03: Verify if user register successfully with "Female" gender selected', async ({page}) => {
-            await registerP.radioGenderFemale(
+            await registerP.registerUser(
                 testData.regfieldCredentials.fname, 
                 testData.regfieldCredentials.lname, 
-                testData.regfieldCredentials.email, 
+                testData.generateUniqueEmail(), 
                 testData.regfieldCredentials.phoneNum, 
-                testData.regdropdownOccupation.occupation1, 
+                testData.regdropdownOccupation.engineer,
+                'Female', 
                 testData.regfieldCredentials.password, 
                 testData.regfieldCredentials.confirmPass);
             await expect(registerP.toastMessage).toHaveText(messages.containerMessages.floatSuccess);
@@ -60,9 +64,10 @@ test.describe('Register Feature', () => {
                 await registerP.registerUser(
                     testData.regfieldCredentials.fname, 
                     testData.regfieldCredentials.lname, 
-                    testData.regfieldCredentials.email, 
+                    testData.generateUniqueEmail(), 
                     testData.regfieldCredentials.phoneNum, 
                     occupation, 
+                    'Male',
                     testData.regfieldCredentials.password, 
                     testData.regfieldCredentials.confirmPass);
                 await expect(registerP.toastMessage).toHaveText(messages.containerMessages.floatSuccess);
@@ -74,7 +79,7 @@ test.describe('Register Feature', () => {
 
     //register feature (negative testcases)
     test.describe('Negative TestCases', () => {
-        test.only('TC-NEG-01: Verify validation errors for empty mandatory fields', async({page}) => {
+        test('TC-NEG-01: Verify validation errors for empty mandatory fields', async({page}) => {
             await registerP.clickRegisterBtn();
             await expect(registerP.fnameFieldError).toHaveText(messages.errorMessages.requiredFname);
             // TODO: Bug - add requiredLname back once UI/UX fixes the missing error message
