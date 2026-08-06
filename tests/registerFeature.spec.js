@@ -24,7 +24,7 @@ test.describe('Register Feature', () => {
                 testData.generateUniqueEmail(), 
                 testData.regfieldCredentials.phoneNum, 
                 testData.regdropdownOccupation.doctor,
-                'Male', 
+                testData.regGender.male, 
                 testData.regfieldCredentials.password, 
                 testData.regfieldCredentials.confirmPass);
             await expect(registerP.toastMessage).toHaveText(messages.containerMessages.floatSuccess);
@@ -39,7 +39,7 @@ test.describe('Register Feature', () => {
                 testData.generateUniqueEmail(), 
                 testData.regfieldCredentials.phoneNum, 
                 testData.regdropdownOccupation.student,
-                'Male',
+                testData.regGender.male,
                 testData.regfieldCredentials.password, 
                 testData.regfieldCredentials.confirmPass);
             await expect(registerP.toastMessage).toHaveText(messages.containerMessages.floatSuccess);
@@ -66,7 +66,7 @@ test.describe('Register Feature', () => {
                     testData.generateUniqueEmail(), 
                     testData.regfieldCredentials.phoneNum, 
                     occupation, 
-                    'Male',
+                    testData.regGender.male,
                     testData.regfieldCredentials.password, 
                     testData.regfieldCredentials.confirmPass);
                 await expect(registerP.toastMessage).toHaveText(messages.containerMessages.floatSuccess);
@@ -88,18 +88,17 @@ test.describe('Register Feature', () => {
         });
 
         test('TC-NEG-02: Verify validation error for empty Firstname', async ({page}) => {
-            await expect(registerP.firstname).toHaveValue('');
-            await registerP.lastname.fill(testData.regfieldCredentials.lname);
-            await registerP.email.fill(testData.generateUniqueEmail());
-            await registerP.phoneNumber.fill(testData.regfieldCredentials.phoneNum);
-            await registerP.selectOccupation(testData.regdropdownOccupation.doctor);
-            await registerP.selectGender(testData.regGender.male);
-            await registerP.password.fill(testData.regfieldCredentials.password);
-            await registerP.confirmPass.fill(testData.regfieldCredentials.confirmPass);
+            await registerP.fillMandatoryFields({
+                lastname: testData.regfieldCredentials.lname,
+                email: testData.generateUniqueEmail(),
+                phoneNumber: testData.regfieldCredentials.phoneNum,
+                occupation: testData.regdropdownOccupation.doctor,
+                gender: testData.regGender.male,
+                password: testData.regfieldCredentials.password,
+                confirmPass: testData.regfieldCredentials.confirmPass});
             await registerP.clickCheckbox();
             await registerP.clickRegisterBtn();
             await expect(registerP.fnameFieldError).toHaveText(messages.errorMessages.requiredFname);
-            console.log('Success');
         });
         
        

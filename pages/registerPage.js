@@ -31,7 +31,7 @@ class registerPage extends basePage {
         await this.lastname.fill(lname);
         await this.email.fill(email);
         await this.phoneNumber.fill(phoneNum);
-        await this.selectOccupation(occupation)
+        await this.selectOccupation(occupation);
         await this.selectGender(gender);
         await this.password.fill(password);
         await this.confirmPass.fill(confirmPass);
@@ -39,37 +39,55 @@ class registerPage extends basePage {
         await this.registerButton.click();
     }
 
-    async selectGender (gender) {
-        if (gender.toLowerCase () === 'male') {
+    async selectGender(gender) {
+        if (gender.toLowerCase() === 'male') {
             await this.genderMale.click();
         } else if (gender.toLowerCase() === 'female') {
             await this.genderFemale.click();
         }
     }
 
-    async selectOccupation (occupation) {
+    async selectOccupation(occupation) {
         await this.occupationDrop.selectOption({label: occupation});
     }
 
-    async fillMandatoryFields (fname, lname, email, phoneNum, occupation, password, confirmPass) {
-        await this.firstname.fill(fname);
-        await this.lastname.fill(lname);
-        await this.email.fill(email);
-        await this.phoneNumber.fill(phoneNum);
-        await this.occupationDrop.selectOption({label: occupation});
-        await this.genderMale.click();
+    async fillMandatoryFields(data) {
+        if(data.firstname){
+            await this.firstname.fill(data.firstname);
+        }
+        if(data.lastname){
+            await this.lastname.fill(data.lastname);
+        }
+        if(data.email){
+            await this.email.fill(data.email);
+        }
+        if(data.phoneNumber){
+            await this.phoneNumber.fill(data.phoneNumber);
+        }
+        if(data.occupation){
+            await this.selectOccupation(data.occupation);
+        }
+        if(data.gender){
+            await this.selectGender(data.gender);
+        }
+        if(data.password){
+            await this.password.fill(data.password);
+        }
+        if(data.confirmPass){
+            await this.confirmPass.fill(data.confirmPass);
+        }
     }
 
-    async clickCheckbox () {
+    async clickCheckbox() {
         await this.confirmCheckbox.click();
     }
 
-    async passwordMismatch (password, confirmpass){
+    async passwordMismatch(password, confirmpass){
         await this.password.fill(password);
         await this.confirmPass.fill(confirmpass);
     }
 
-    async clickRegisterBtn () {
+    async clickRegisterBtn() {
         await this.registerButton.click();
     }
 
