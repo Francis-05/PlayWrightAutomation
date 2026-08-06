@@ -26,51 +26,37 @@ class registerPage extends basePage {
         this.checkBoxError = page.getByText('*Please check above checkbox');
     }
     
-    async registerUser (fname, lname, email, phoneNum, occupation1, password, confirmPass) {
+    async registerUser (fname, lname, email, phoneNum, occupation, gender, password, confirmPass) {
         await this.firstname.fill(fname);
         await this.lastname.fill(lname);
         await this.email.fill(email);
         await this.phoneNumber.fill(phoneNum);
-        await this.occupationDrop.selectOption({label: occupation1});
-        await this.genderMale.click();
+        await this.selectOccupation(occupation)
+        await this.selectGender(gender);
         await this.password.fill(password);
         await this.confirmPass.fill(confirmPass);
         await this.confirmCheckbox.click();
         await this.registerButton.click();
     }
 
-    async radioGenderMale (fname, lname, email, phoneNum, occupation1, password, confirmPass) {
-        await this.firstname.fill(fname);
-        await this.lastname.fill(lname);
-        await this.email.fill(email);
-        await this.phoneNumber.fill(phoneNum);
-        await this.occupationDrop.selectOption({label: occupation1});
-        await this.genderMale.click();
-        await this.password.fill(password);
-        await this.confirmPass.fill(confirmPass);
-        await this.confirmCheckbox.click();
-        await this.registerButton.click();
+    async selectGender (gender) {
+        if (gender.toLowerCase () === 'male') {
+            await this.genderMale.click();
+        } else if (gender.toLowerCase() === 'female') {
+            await this.genderFemale.click();
+        }
     }
 
-    async radioGenderFemale (fname, lname, email, phoneNum, occupation1, password, confirmPass) {
-        await this.firstname.fill(fname);
-        await this.lastname.fill(lname);
-        await this.email.fill(email);
-        await this.phoneNumber.fill(phoneNum);
-        await this.occupationDrop.selectOption({label: occupation1});
-        await this.genderFemale.click();
-        await this.password.fill(password);
-        await this.confirmPass.fill(confirmPass);
-        await this.confirmCheckbox.click();
-        await this.registerButton.click();
+    async selectOccupation (occupation) {
+        await this.occupationDrop.selectOption({label: occupation});
     }
 
-    async fillMandatoryFields (fname, lname, email, phoneNum, occupation1, password, confirmPass) {
+    async fillMandatoryFields (fname, lname, email, phoneNum, occupation, password, confirmPass) {
         await this.firstname.fill(fname);
         await this.lastname.fill(lname);
         await this.email.fill(email);
         await this.phoneNumber.fill(phoneNum);
-        await this.occupationDrop.selectOption({label: occupation1});
+        await this.occupationDrop.selectOption({label: occupation});
         await this.genderMale.click();
     }
 
