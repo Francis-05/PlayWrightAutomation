@@ -1,8 +1,10 @@
+require('dotenv').config();
+
 module.exports = {
     
     validUser: {
-        email: "franz.rose225@gmail.com",
-        password: "admin###123",
+        email: process.env.LOGIN_EMAIL,
+        password: process.env.LOGIN_PASSWORD,
     },
 
     unregisteredUser: {
@@ -11,7 +13,7 @@ module.exports = {
     },
 
     invalidPasswordUser: {
-        email: "franz.rose225@gmail.com",
+        email: process.env.LOGIN_EMAIL,
         password: "incorrectpass"
     },
 

@@ -14,6 +14,15 @@ module.exports = {
         confirmPass: "Admin#123",
     },
 
+    alreadyRegisteredUser : {
+        fname: "John",
+        lname: "Doe",
+        email: "franz.rose225@gmail.com",
+        phoneNum: "1234567890",
+        password: "Admin#123",
+        confirmPass: "Admin#123",
+    },
+
     regdropdownOccupation : {
         doctor: "Doctor",
         student: "Student",

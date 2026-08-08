@@ -58,8 +58,8 @@ test.describe('Register Feature', () => {
             await expect(registerP.toastMessage).toHaveText(messages.containerMessages.floatSuccess);
         });
 
-        occupations.forEach((occupation) => {
-            test(`TC-POS-04: Verify if successful registration - occupation ${occupation}`, async ({page}) => {
+        occupations.forEach((occupation, index) => {
+            test(`TC-POS-04 (${index + 1}): Verify if successful registration - occupation ${occupation}`, async ({page}) => {
                 await registerP.registerUser(
                     testData.regfieldCredentials.fname, 
                     testData.regfieldCredentials.lname, 
@@ -100,7 +100,92 @@ test.describe('Register Feature', () => {
             await registerP.clickRegisterBtn();
             await expect(registerP.fnameFieldError).toHaveText(messages.errorMessages.requiredFname);
         });
+        // TODO: Bug - missing error message empty last name (to fix by dev)
+        // test('TC-NEG-03: Verify validation error for empty Lastname', async ({page}) => {
+        //     await registerP.fillMandatoryFields({
+        //         firstname: testData.regfieldCredentials.fname,
+        //         email: testData.generateUniqueEmail(),
+        //         phoneNumber: testData.regfieldCredentials.phoneNum,
+        //         occupation: testData.regdropdownOccupation.doctor,
+        //         gender: testData.regGender.male,
+        //         password: testData.regfieldCredentials.password,
+        //         confirmPass: testData.regfieldCredentials.confirmPass});
+        //     await registerP.clickCheckbox();
+        //     await registerP.clickRegisterBtn();
+        //     await expect(registerP.lnameFieldError).toHaveText(messages.errorMessages.requiredLname);
+        // });
+
+        test('TC-NEG-04: Verify validation error for empty Email', async ({page}) => {
+            await registerP.fillMandatoryFields({
+                firstname: testData.regfieldCredentials.fname,
+                lastname: testData.regfieldCredentials.lname,
+                phoneNumber: testData.regfieldCredentials.phoneNum,
+                occupation: testData.regdropdownOccupation.doctor,
+                gender: testData.regGender.male,
+                password: testData.regfieldCredentials.password,
+                confirmPass: testData.regfieldCredentials.confirmPass});
+            await registerP.clickCheckbox();
+            await registerP.clickRegisterBtn();
+            await expect(registerP.emailFieldError).toHaveText(messages.errorMessages.requiredemail);
+        });
+
+        test('TC-NEG-05: Verify validation error for empty Phone Number', async ({page}) => {
+            await registerP.fillMandatoryFields({
+                firstname: testData.regfieldCredentials.fname,
+                lastname: testData.regfieldCredentials.lname,
+                email: testData.generateUniqueEmail(),
+                occupation: testData.regdropdownOccupation.doctor,
+                gender: testData.regGender.male,
+                password: testData.regfieldCredentials.password,
+                confirmPass: testData.regfieldCredentials.confirmPass});
+            await registerP.clickCheckbox();
+            await registerP.clickRegisterBtn();
+            await expect(registerP.phoneNumFieldError).toHaveText(messages.errorMessages.requiredphoneNum);
+        });
+
+        test('TC-NEG-06: Verify validation error for empty Password with mistmatch error', async ({page}) => {
+            await registerP.fillMandatoryFields({
+                firstname: testData.regfieldCredentials.fname,
+                lastname: testData.regfieldCredentials.lname,
+                email: testData.generateUniqueEmail(),
+                phoneNumber: testData.regfieldCredentials.phoneNum,
+                occupation: testData.regdropdownOccupation.doctor,
+                gender: testData.regGender.male,
+                confirmPass: testData.regfieldCredentials.confirmPass});
+            await registerP.clickCheckbox();
+            await registerP.clickRegisterBtn();
+            await expect(registerP.passFieldError).toHaveText(messages.errorMessages.requiredPass);
+            await expect(registerP.confirmpassFieldError).toHaveText(messages.errorMessages.mistmatchPass);
+        });
+
+        test('TC-NEG-07: Verify validation error for empty Confirm Password', async ({page}) => {
+            await registerP.fillMandatoryFields({
+                firstname: testData.regfieldCredentials.fname,
+                lastname: testData.regfieldCredentials.lname,
+                email: testData.generateUniqueEmail(),
+                phoneNumber: testData.regfieldCredentials.phoneNum,
+                occupation: testData.regdropdownOccupation.doctor,
+                gender: testData.regGender.male,
+                password: testData.regfieldCredentials.password,});
+            await registerP.clickCheckbox();
+            await registerP.clickRegisterBtn();
+            await expect(registerP.confirmpassFieldError).toHaveText(messages.errorMessages.requiredConfirmpass);
+        });
         
+        test('TC-NEG-08: Verify validation error for mismatch Password & Confirm Password', async ({page}) => {
+            await registerP.fillMandatoryFields({
+                firstname: testData.regfieldCredentials.fname,
+                lastname: testData.regfieldCredentials.lname,
+                email: testData.generateUniqueEmail(),
+                phoneNumber: testData.regfieldCredentials.phoneNum,
+                occupation: testData.regdropdownOccupation.doctor,
+                gender: testData.regGender.male,
+                password: testData.passwordMismatch.password,
+                confirmPass: testData.passwordMismatch.confirmPass});
+            await registerP.clickCheckbox();
+            await registerP.clickRegisterBtn();
+            await expect(registerP.confirmpassFieldError).toHaveText(messages.errorMessages.mistmatchPass);
+        });
        
     });
 });

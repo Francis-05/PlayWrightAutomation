@@ -15,7 +15,7 @@ test.describe('Login Feature', () => {
 
     //login feature (happy path cases)
     test.describe('Happy Path TestCases', () => {
-        test('TC-POS-01: Verify successfull login with valid credentials', async ({page}) => {
+        test.only('TC-POS-01: Verify successfull login with valid credentials', async ({page}) => {
             await loginP.login(testData.validUser.email, testData.validUser.password);
             await expect(page).toHaveURL(baseUrls.dashboardURL.url);
         });

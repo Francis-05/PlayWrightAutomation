@@ -14,4 +14,16 @@ module.exports = {
         checkboxError: '*Please check above checkbox',
     },
 
+    validMessages: {
+        validEmail: '*Enter Valid Email',
+        validphoneNum: '*only numbers is allowed',
+    },
+
+    inputValMessages: {
+        shortFname: '*First Name must be 3 or more character long',
+        longFname: '*First Name must be 12 or less character long',
+        lengthphoneNum: '*Phone Number must be 10 digit',
+    },
+
+
 }

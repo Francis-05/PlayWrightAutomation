@@ -12,8 +12,13 @@
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.61.1",
     "@types/node": "^26.1.1",
+    "dotenv": "^17.4.2",
     "eslint": "^10.8.0",
     "globals": "^17.7.0",
     "typescript-eslint": "^8.65.0"
+  },
+  "dependencies": {
+    "ls": "^1.0.0",
+    "scripts": "^0.1.0"
   }
 }

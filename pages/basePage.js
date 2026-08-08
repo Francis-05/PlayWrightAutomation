@@ -6,7 +6,7 @@ class basePage {
     }
 
     async goto(url) {
-        await this.page.goto(url);
+        await this.page.goto(url, { waitUntil: 'domcontentloaded'});
     }
 }
 
