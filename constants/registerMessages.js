@@ -33,9 +33,20 @@ module.exports = {
         fname: 'First Name',
         lname: 'Last Name',
         email: 'email@example.com',
-        phoneNum: 'email@example.com',
+        phoneNum: 'enter your number',
+        dropdown: 'Choose your occupation',
         password: 'Passsword',
         confirmPass: 'Confirm Passsword',
+    },
+
+    emptyRegisterFields: {
+        fname: "",
+        lname: "",
+        email: "",
+        phoneNum: "",
+        dropdown:"",
+        password: "",
+        confirmPass: "",
     },
 
 
