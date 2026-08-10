@@ -1,6 +1,8 @@
 module.exports = {
     containerMessages: {
         floatSuccess: 'Registered Successfully',
+        floatErrorPassword: 'Password must be 8 Character Long!',
+        floatErrorEmailDuplicate: 'User already exisits with this Email Id!',
     },
 
     errorMessages: {
