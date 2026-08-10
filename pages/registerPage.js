@@ -25,7 +25,8 @@ class registerPage extends basePage {
         this.passFieldError = page.locator('div.form-group', {has: this.password}).locator('div.invalid-feedback div');
         this.confirmpassFieldError = page.locator('div.form-group', {has: this.confirmPass}).locator('div.invalid-feedback div');
         this.checkBoxError = page.getByText('*Please check above checkbox');
-        this.loginHereBtn = page.getByText('Already have an account?');
+        this.loginHereBtn = page.locator('.login-wrapper-footer-text');
+
     }
     
     async registerUser (fname, lname, email, phoneNum, occupation, gender, password, confirmPass) {
