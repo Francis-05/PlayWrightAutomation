@@ -1,3 +1,5 @@
+const { passwordMismatch } = require("../data/registerData");
+
 module.exports = {
     containerMessages: {
         floatSuccess: 'Registered Successfully',
@@ -25,6 +27,15 @@ module.exports = {
         shortFname: '*First Name must be 3 or more character long',
         longFname: '*First Name must be 12 or less character long',
         lengthphoneNum: '*Phone Number must be 10 digit',
+    },
+
+    registerFieldPlaceholders: {
+        fname: 'First Name',
+        lname: 'Last Name',
+        email: 'email@example.com',
+        phoneNum: 'email@example.com',
+        password: 'Passsword',
+        confirmPass: 'Confirm Passsword',
     },
 
 
