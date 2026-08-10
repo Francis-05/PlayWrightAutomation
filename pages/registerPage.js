@@ -99,7 +99,7 @@ class registerPage extends basePage {
     }
 
     async clickLoginHereBtn () {
-        await this.loginHereBtn.click();
+        await this.loginHereBtn.evaluate(el => el.click());
     }
 
 }
