@@ -187,5 +187,19 @@ test.describe('Register Feature', () => {
             await expect(registerP.confirmpassFieldError).toHaveText(messages.errorMessages.mistmatchPass);
         });
        
+        test.only('TC-NEG-09: Verify validation error for unchecked age checkbox', async ({page}) => {
+                await registerP.fillMandatoryFields({
+                firstname: testData.regfieldCredentials.fname,
+                lastname: testData.regfieldCredentials.lname,
+                email: testData.generateUniqueEmail(),
+                phoneNumber: testData.regfieldCredentials.phoneNum,
+                occupation: testData.regdropdownOccupation.doctor,
+                gender: testData.regGender.male,
+                password: testData.regfieldCredentials.password,
+                confirmPass: testData.regfieldCredentials.confirmPass});
+                await registerP.clickRegisterBtn();
+                await expect(registerP.checkBoxError).toHaveText(messages.errorMessages.checkboxError);
+        });
+
     });
 });
