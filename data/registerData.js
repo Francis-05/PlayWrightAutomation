@@ -17,7 +17,7 @@ module.exports = {
     alreadyRegisteredUser: {
         fname: "John",
         lname: "Doe",
-        email: "franz.rose225@gmail.com",
+        email: process.env.LOGIN_EMAIL,
         phoneNum: "1234567890",
         password: "Admin#123",
         confirmPass: "Admin#123",
@@ -47,5 +47,10 @@ module.exports = {
         password: "Admin#123",
         confirmPass: "Admin#123",
     },
+
+    shortPassword: {
+        password: "Admin1",
+        confirmPass: "Admin1",
+    }
 
 };
