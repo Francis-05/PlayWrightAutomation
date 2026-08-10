@@ -3,6 +3,7 @@ const {registerPage} = require ('../pages/registerPage.js');
 const testData = require ('../data/registerData.js');
 const messages = require ('../constants/registerMessages.js');
 const baseUrls = require ('../data/urls.js');
+const { exec } = require('node:child_process');
 
 const occupations = Object.values(testData.regdropdownOccupation);
 
@@ -187,18 +188,48 @@ test.describe('Register Feature', () => {
             await expect(registerP.confirmpassFieldError).toHaveText(messages.errorMessages.mistmatchPass);
         });
        
-        test.only('TC-NEG-09: Verify validation error for unchecked age checkbox', async ({page}) => {
+        test('TC-NEG-09: Verify validation error for unchecked age checkbox', async ({page}) => {
                 await registerP.fillMandatoryFields({
-                firstname: testData.regfieldCredentials.fname,
-                lastname: testData.regfieldCredentials.lname,
-                email: testData.generateUniqueEmail(),
-                phoneNumber: testData.regfieldCredentials.phoneNum,
-                occupation: testData.regdropdownOccupation.doctor,
-                gender: testData.regGender.male,
-                password: testData.regfieldCredentials.password,
-                confirmPass: testData.regfieldCredentials.confirmPass});
+                    firstname: testData.regfieldCredentials.fname,
+                    lastname: testData.regfieldCredentials.lname,
+                    email: testData.generateUniqueEmail(),
+                    phoneNumber: testData.regfieldCredentials.phoneNum,
+                    occupation: testData.regdropdownOccupation.doctor,
+                    gender: testData.regGender.male,
+                    password: testData.regfieldCredentials.password,
+                    confirmPass: testData.regfieldCredentials.confirmPass});
                 await registerP.clickRegisterBtn();
                 await expect(registerP.checkBoxError).toHaveText(messages.errorMessages.checkboxError);
+        });
+
+        test('TC-NEG-10: Verify error message for invalid email format', async ({page}) => {
+                await registerP.fillMandatoryFields({
+                    firstname: testData.regfieldCredentials.fname,
+                    lastname: testData.regfieldCredentials.lname,
+                    email: testData.invalidUsers.email,
+                    phoneNumber: testData.regfieldCredentials.phoneNum,
+                    occupation: testData.regdropdownOccupation.doctor,
+                    gender: testData.regGender.male,
+                    password: testData.regfieldCredentials.password,
+                    confirmPass: testData.regfieldCredentials.confirmPass});
+                await registerP.clickCheckbox();
+                await registerP.clickRegisterBtn();
+                await expect(registerP.emailFieldError).toHaveText(messages.validMessages.validEmail);
+        });
+
+        test('TC-NEG-11: Verify if error message appears for duplicate user registration', async ({page}) => {
+                await registerP.fillMandatoryFields({
+                    firstname: testData.alreadyRegisteredUser.fname,
+                    lastname: testData.alreadyRegisteredUser.lname,
+                    email: testData.alreadyRegisteredUser.email,
+                    phoneNumber: testData.alreadyRegisteredUser.phoneNum,
+                    occupation: testData.regdropdownOccupation.doctor,
+                    gender: testData.regGender.male,
+                    password: testData.alreadyRegisteredUser.password,
+                    confirmPass: testData.alreadyRegisteredUser.confirmPass});
+                await registerP.clickCheckbox();
+                await registerP.clickRegisterBtn();
+                await expect(registerP.toastMessage).toHaveText(messages.containerMessages.floatErrorEmailDuplicate);
         });
 
     });
