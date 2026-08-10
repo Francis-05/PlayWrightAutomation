@@ -1,5 +1,3 @@
-const { passwordMismatch } = require("../data/registerData");
-
 module.exports = {
     containerMessages: {
         floatSuccess: 'Registered Successfully',

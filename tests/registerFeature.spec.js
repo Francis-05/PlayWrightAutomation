@@ -3,7 +3,6 @@ const {registerPage} = require ('../pages/registerPage.js');
 const testData = require ('../data/registerData.js');
 const messages = require ('../constants/registerMessages.js');
 const baseUrls = require ('../data/urls.js');
-const { exec } = require('node:child_process');
 
 
 test.describe('Register Feature', () => {
