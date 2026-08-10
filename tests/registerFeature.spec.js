@@ -247,5 +247,41 @@ test.describe('Register Feature', () => {
                 await expect(registerP.phoneNumFieldError).toHaveText(messages.validMessages.validphoneNum);
         });
 
+        test('TC-NEG-13: Verify error validation for short/long digits in phone number field', async ({page}) => {
+                await registerP.fillMandatoryFields({
+                    firstname: testData.regfieldCredentials.fname,
+                    lastname: testData.regfieldCredentials.lname,
+                    email: testData.generateUniqueEmail(),
+                    phoneNumber: testData.invalidUsers.lengthphoneNum,
+                    occupation: testData.regfieldCredentials.doctor,
+                    gender: testData.regGender.male,
+                    password: testData.regfieldCredentials.password,
+                    confirmPass: testData.regfieldCredentials.confirmPass});
+                await registerP.clickCheckbox();
+                await registerP.clickRegisterBtn();
+                await expect(registerP.phoneNumFieldError).toHaveText(messages.inputValMessages.lengthphoneNum);
+        });
+
+        test('TC-NEG-14: Verify error validation for password that doesnt meet complexity', async ({page}) => {
+                await registerP.fillMandatoryFields({
+                    firstname: testData.regfieldCredentials.fname,
+                    lastname: testData.regfieldCredentials.lname,
+                    email: testData.generateUniqueEmail(),
+                    phoneNumber: testData.regfieldCredentials.phoneNum,
+                    occupation: testData.regfieldCredentials.doctor,
+                    gender: testData.regGender.male,
+                    password: testData.shortPassword.password,
+                    confirmPass: testData.shortPassword.confirmPass});
+                await registerP.clickCheckbox();
+                await registerP.clickRegisterBtn();
+                await expect(registerP.toastMessage).toHaveText(messages.containerMessages.floatErrorPassword);
+        });
+    });
+
+    //register feature (UI / Placeholder Validation)
+    test.describe('UI / Placeholder Validation', () => {
+        test('TC-UI-01: Verify if placeholder text is correct for all fields', async ({page}) => {
+            await expect(registerP.firstname).toHaveAttribute('placeholder', messages.registerFieldPlaceholders.fname);
+        });
     });
 });
