@@ -6,7 +6,7 @@ module.exports = {
     
     generateUniqueEmail,
 
-    regfieldCredentials : {
+    regfieldCredentials: {
         fname: "John",
         lname: "Doe",
         phoneNum: "1234567890",
@@ -14,7 +14,7 @@ module.exports = {
         confirmPass: "Admin#123",
     },
 
-    alreadyRegisteredUser : {
+    alreadyRegisteredUser: {
         fname: "John",
         lname: "Doe",
         email: "franz.rose225@gmail.com",
@@ -23,7 +23,7 @@ module.exports = {
         confirmPass: "Admin#123",
     },
 
-    regdropdownOccupation : {
+    regdropdownOccupation: {
         doctor: "Doctor",
         student: "Student",
         engineer: "Engineer", 
@@ -38,6 +38,14 @@ module.exports = {
     regGender: {
         male: "Male",
         female: "Female",
+    },
+
+    invalidUsers: {
+        email: "testemal@@g.com",
+        lengthphoneNum: "12345678901",
+        validphoneNum: "@bcd#qwere",
+        password: "Admin#123",
+        confirmPass: "Admin#123",
     },
 
 };
