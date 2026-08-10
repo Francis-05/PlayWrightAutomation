@@ -32,7 +32,7 @@ test.describe('Register Feature', () => {
 
         const radioGender = Object.values(testData.regGender);
         radioGender.forEach((gender, index) => {
-            test(`TC-POS-0${index + 2}: Verify if user register successfully with "${gender}" gender selectedgender registration`, async ({page}) => {
+            test(`TC-POS-0${index + 2}: Verify if user register successfully with "${gender}" gender selected`, async ({page}) => {
                 await registerP.registerUser(
                     testData.regfieldCredentials.fname, 
                     testData.regfieldCredentials.lname, 
@@ -226,7 +226,7 @@ test.describe('Register Feature', () => {
                     lastname: testData.regfieldCredentials.lname,
                     email: testData.generateUniqueEmail(),
                     phoneNumber: testData.invalidUsers.validphoneNum,
-                    occupation: testData.regfieldCredentials.doctor,
+                    occupation: testData.regdropdownOccupation.doctor,
                     gender: testData.regGender.male,
                     password: testData.regfieldCredentials.password,
                     confirmPass: testData.regfieldCredentials.confirmPass});
@@ -241,7 +241,7 @@ test.describe('Register Feature', () => {
                     lastname: testData.regfieldCredentials.lname,
                     email: testData.generateUniqueEmail(),
                     phoneNumber: testData.invalidUsers.lengthphoneNum,
-                    occupation: testData.regfieldCredentials.doctor,
+                    occupation: testData.regdropdownOccupation.doctor,
                     gender: testData.regGender.male,
                     password: testData.regfieldCredentials.password,
                     confirmPass: testData.regfieldCredentials.confirmPass});
