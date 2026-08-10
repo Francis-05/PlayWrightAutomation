@@ -5,7 +5,6 @@ const messages = require ('../constants/registerMessages.js');
 const baseUrls = require ('../data/urls.js');
 const { exec } = require('node:child_process');
 
-const occupations = Object.values(testData.regdropdownOccupation);
 
 test.describe('Register Feature', () => {
     let registerP;
@@ -59,6 +58,7 @@ test.describe('Register Feature', () => {
             await expect(registerP.toastMessage).toHaveText(messages.containerMessages.floatSuccess);
         });
 
+        const occupations = Object.values(testData.regdropdownOccupation);
         occupations.forEach((occupation, index) => {
             test(`TC-POS-04 (${index + 1}): Verify if successful registration - occupation ${occupation}`, async ({page}) => {
                 await registerP.registerUser(
@@ -282,6 +282,44 @@ test.describe('Register Feature', () => {
     test.describe('UI / Placeholder Validation', () => {
         test('TC-UI-01: Verify if placeholder text is correct for all fields', async ({page}) => {
             await expect(registerP.firstname).toHaveAttribute('placeholder', messages.registerFieldPlaceholders.fname);
+            await expect(registerP.lastname).toHaveAttribute('placeholder', messages.registerFieldPlaceholders.lname);
+            await expect(registerP.email).toHaveAttribute('placeholder', messages.registerFieldPlaceholders.email);
+            await expect(registerP.phoneNumber).toHaveAttribute('placeholder', messages.registerFieldPlaceholders.phoneNum);
+            await expect(registerP.password).toHaveAttribute('placeholder', messages.registerFieldPlaceholders.password);
+            await expect(registerP.confirmPass).toHaveAttribute('placeholder', messages.registerFieldPlaceholders.confirmPass);
         });
+
+        test('TC-UI-02: Verify if "Choose your occupation" set as default display in dropdown', async ({page}) => {
+            await expect(registerP.dropdownDefault).toHaveText(messages.registerFieldPlaceholders.dropdown);
+        });
+
+        test('TC-UI-03: Verify if all mandatory fields are empty by default on page load', async ({page}) => {
+            await expect(registerP.firstname).toHaveValue(messages.emptyRegisterFields.fname);
+            await expect(registerP.lastname).toHaveValue(messages.emptyRegisterFields.lname);
+            await expect(registerP.email).toHaveValue(messages.emptyRegisterFields.email);
+            await expect(registerP.phoneNumber).toHaveValue(messages.emptyRegisterFields.phoneNum);
+            await expect(registerP.occupationDrop).toHaveValue(messages.emptyRegisterFields.dropdown);
+            await expect(registerP.password).toHaveValue(messages.emptyRegisterFields.password);
+            await expect(registerP.confirmPass).toHaveValue(messages.emptyRegisterFields.confirmPass);
+        });
+
+        test('TC-UI-04: Verify if gender radio buttons are default unselected', async ({page}) => {
+            const genderRadio = [registerP.genderMale, registerP.genderFemale];
+            for(const radio of genderRadio) {
+                await expect(radio).not.toBeChecked();
+            }
+        });
+
+        test('TC-UI-05: Verify if checkbox for age is default unchecked', async ({page}) => {
+            await expect(registerP.confirmCheckbox).not.toBeChecked();
+        });
+
+        test('TC-UI-06: Verify password and confirm password field is masked when character is inputted', async ({page}) => {
+            const maskPassword = [registerP.password, registerP.confirmPass];
+            for(const masked of maskPassword) {
+                await expect(masked).toHaveAttribute('type', 'password');
+            }
+        });
+
     });
 });
