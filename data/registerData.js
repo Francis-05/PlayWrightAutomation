@@ -53,4 +53,18 @@ module.exports = {
         confirmPass: "Admin1",
     },
 
+    emptyRegisterFields: {
+        defaultEmpty: "",
+    },
+
+    registerFieldPlaceholders: {
+        fname: 'First Name',
+        lname: 'Last Name',
+        email: 'email@example.com',
+        phoneNum: 'enter your number',
+        dropdown: 'Choose your occupation',
+        password: 'Passsword',
+        confirmPass: 'Confirm Passsword',
+    },
+
 };

@@ -30,30 +30,20 @@ test.describe('Register Feature', () => {
             await expect(page).toHaveURL(baseUrls.loginPageURL.url);
         });
 
-        test('TC-POS-02: Verify if user register successfully with "Male" gender selected', async ({page}) => {
-            await registerP.registerUser(
-                testData.regfieldCredentials.fname, 
-                testData.regfieldCredentials.lname, 
-                testData.generateUniqueEmail(), 
-                testData.regfieldCredentials.phoneNum, 
-                testData.regdropdownOccupation.student,
-                testData.regGender.male,
-                testData.regfieldCredentials.password, 
-                testData.regfieldCredentials.confirmPass);
-            await expect(registerP.toastMessage).toHaveText(messages.containerMessages.floatSuccess);
-        });
-
-        test('TC-POS-03: Verify if user register successfully with "Female" gender selected', async ({page}) => {
-            await registerP.registerUser(
-                testData.regfieldCredentials.fname, 
-                testData.regfieldCredentials.lname, 
-                testData.generateUniqueEmail(), 
-                testData.regfieldCredentials.phoneNum, 
-                testData.regdropdownOccupation.engineer,
-                'Female', 
-                testData.regfieldCredentials.password, 
-                testData.regfieldCredentials.confirmPass);
-            await expect(registerP.toastMessage).toHaveText(messages.containerMessages.floatSuccess);
+        const radioGender = Object.values(testData.regGender);
+        radioGender.forEach((gender, index) => {
+            test(`TC-POS-0${index + 2}: Verify if user register successfully with "${gender}" gender selectedgender registration`, async ({page}) => {
+                await registerP.registerUser(
+                    testData.regfieldCredentials.fname, 
+                    testData.regfieldCredentials.lname, 
+                    testData.generateUniqueEmail(), 
+                    testData.regfieldCredentials.phoneNum, 
+                    testData.regdropdownOccupation.student,
+                    gender,
+                    testData.regfieldCredentials.password, 
+                    testData.regfieldCredentials.confirmPass);
+                await expect(registerP.toastMessage).toHaveText(messages.containerMessages.floatSuccess);
+             });
         });
 
         const occupations = Object.values(testData.regdropdownOccupation);
@@ -279,26 +269,23 @@ test.describe('Register Feature', () => {
     //register feature (UI / Placeholder Validation)
     test.describe('UI / Placeholder Validation', () => {
         test('TC-UI-01: Verify if placeholder text is correct for all fields', async ({page}) => {
-            await expect(registerP.firstname).toHaveAttribute('placeholder', messages.registerFieldPlaceholders.fname);
-            await expect(registerP.lastname).toHaveAttribute('placeholder', messages.registerFieldPlaceholders.lname);
-            await expect(registerP.email).toHaveAttribute('placeholder', messages.registerFieldPlaceholders.email);
-            await expect(registerP.phoneNumber).toHaveAttribute('placeholder', messages.registerFieldPlaceholders.phoneNum);
-            await expect(registerP.password).toHaveAttribute('placeholder', messages.registerFieldPlaceholders.password);
-            await expect(registerP.confirmPass).toHaveAttribute('placeholder', messages.registerFieldPlaceholders.confirmPass);
+            await expect(registerP.firstname).toHaveAttribute('placeholder', testData.registerFieldPlaceholders.fname);
+            await expect(registerP.lastname).toHaveAttribute('placeholder', testData.registerFieldPlaceholders.lname);
+            await expect(registerP.email).toHaveAttribute('placeholder', testData.registerFieldPlaceholders.email);
+            await expect(registerP.phoneNumber).toHaveAttribute('placeholder', testData.registerFieldPlaceholders.phoneNum);
+            await expect(registerP.password).toHaveAttribute('placeholder', testData.registerFieldPlaceholders.password);
+            await expect(registerP.confirmPass).toHaveAttribute('placeholder', testData.registerFieldPlaceholders.confirmPass);
         });
 
         test('TC-UI-02: Verify if "Choose your occupation" set as default display in dropdown', async ({page}) => {
-            await expect(registerP.dropdownDefault).toHaveText(messages.registerFieldPlaceholders.dropdown);
+            await expect(registerP.dropdownDefault).toHaveText(testData.registerFieldPlaceholders.dropdown);
         });
 
         test('TC-UI-03: Verify if all mandatory fields are empty by default on page load', async ({page}) => {
-            await expect(registerP.firstname).toHaveValue(messages.emptyRegisterFields.fname);
-            await expect(registerP.lastname).toHaveValue(messages.emptyRegisterFields.lname);
-            await expect(registerP.email).toHaveValue(messages.emptyRegisterFields.email);
-            await expect(registerP.phoneNumber).toHaveValue(messages.emptyRegisterFields.phoneNum);
-            await expect(registerP.occupationDrop).toHaveValue(messages.emptyRegisterFields.dropdown);
-            await expect(registerP.password).toHaveValue(messages.emptyRegisterFields.password);
-            await expect(registerP.confirmPass).toHaveValue(messages.emptyRegisterFields.confirmPass);
+            const emptyFields = [registerP.firstname, registerP.lastname, registerP.email, registerP.phoneNumber, registerP.occupationDrop, registerP.password, registerP.confirmPass];
+            for(const empty of emptyFields) {
+                await expect(empty).toHaveValue(testData.emptyRegisterFields.defaultEmpty);
+            }
         });
 
         test('TC-UI-04: Verify if gender radio buttons are default unselected', async ({page}) => {
