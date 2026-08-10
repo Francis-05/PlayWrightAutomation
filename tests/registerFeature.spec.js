@@ -12,7 +12,6 @@ test.describe('Register Feature', () => {
     test.beforeEach(async ({page}) => {
         registerP = new registerPage(page);
         await registerP.goto(baseUrls.registerURL.url);
-        await page.waitForLoadState('networkidle');
     });
 
     //register feature (happy path testcase)
@@ -320,6 +319,13 @@ test.describe('Register Feature', () => {
                 await expect(masked).toHaveAttribute('type', 'password');
             }
         });
+    });
 
+    //register feature (UI / Placeholder Validation)
+    test.describe('Navigation and Link Functionality', () => {
+        test('TC-NAV-01: Verify clicking "Already have an account? Login here" redirects to login page', async ({page}) => {
+            await registerP.clickLoginHereBtn();
+            await expect(page).toHaveURL(baseUrls.loginPageURL.url);
+        });
     });
 });
