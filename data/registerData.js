@@ -51,6 +51,6 @@ module.exports = {
     shortPassword: {
         password: "Admin1",
         confirmPass: "Admin1",
-    }
+    },
 
 };
