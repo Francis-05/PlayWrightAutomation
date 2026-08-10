@@ -232,5 +232,20 @@ test.describe('Register Feature', () => {
                 await expect(registerP.toastMessage).toHaveText(messages.containerMessages.floatErrorEmailDuplicate);
         });
 
+        test('TC-NEG-12: Verify error validation for letters/symbols in phone number field', async ({page}) => {
+                await registerP.fillMandatoryFields({
+                    firstname: testData.regfieldCredentials.fname,
+                    lastname: testData.regfieldCredentials.lname,
+                    email: testData.generateUniqueEmail(),
+                    phoneNumber: testData.invalidUsers.validphoneNum,
+                    occupation: testData.regfieldCredentials.doctor,
+                    gender: testData.regGender.male,
+                    password: testData.regfieldCredentials.password,
+                    confirmPass: testData.regfieldCredentials.confirmPass});
+                await registerP.clickCheckbox();
+                await registerP.clickRegisterBtn();
+                await expect(registerP.phoneNumFieldError).toHaveText(messages.validMessages.validphoneNum);
+        });
+
     });
 });
