@@ -10,7 +10,7 @@ class registerPage extends basePage {
         this.email = page.getByRole('textbox', { name: 'email@example.com' });
         this.phoneNumber = page.getByRole('textbox', { name: 'enter your number' });
         this.occupationDrop = page.locator('select[formcontrolname="occupation"]');
-        this.dropdownDefault = page.locator('option[disabled]');
+        this.dropdownDefault = this.occupationDrop.locator('option[disabled]');
         this.genderMale =  page.getByRole('radio', { name: 'Male', exact: true });
         this.genderFemale = page.getByRole('radio', { name: 'Female' });
         this.password = page.getByRole('textbox', { name: 'Passsword' });
