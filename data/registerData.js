@@ -43,7 +43,7 @@ module.exports = {
     invalidUsers: {
         email: "testemal@@g.com",
         lengthphoneNum: "12345678901",
-        validphoneNum: "@bcd#qwere",
+        invalidphoneNum: "@bcd#qwere",
         password: "Admin#123",
         confirmPass: "Admin#123",
     },
