@@ -225,7 +225,7 @@ test.describe('Register Feature', () => {
                     firstname: testData.regfieldCredentials.fname,
                     lastname: testData.regfieldCredentials.lname,
                     email: testData.generateUniqueEmail(),
-                    phoneNumber: testData.invalidUsers.validphoneNum,
+                    phoneNumber: testData.invalidUsers.invalidphoneNum,
                     occupation: testData.regdropdownOccupation.doctor,
                     gender: testData.regGender.male,
                     password: testData.regfieldCredentials.password,
@@ -256,7 +256,7 @@ test.describe('Register Feature', () => {
                     lastname: testData.regfieldCredentials.lname,
                     email: testData.generateUniqueEmail(),
                     phoneNumber: testData.regfieldCredentials.phoneNum,
-                    occupation: testData.regfieldCredentials.doctor,
+                    occupation: testData.regdropdownOccupation.doctor,
                     gender: testData.regGender.male,
                     password: testData.shortPassword.password,
                     confirmPass: testData.shortPassword.confirmPass});
