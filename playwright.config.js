@@ -46,6 +46,30 @@ export default defineConfig({
   },
 
   /* Configure projects for major browsers */
+  
+  projects: [
+    {
+      name: 'setup',
+      testMatch: /auth\.setup\.spec\.js/,
+    },
+    {
+      name: 'auth test',
+      testMatch: /auth\/(loginFeature|registerFeature)\.spec\.js/,
+    },
+    {
+      name: 'authenticated tests',
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: 'playwright/.auth/user.json',
+      },
+      dependencies: ['setup'],
+      testMatch: /.*\.spec\.js/,
+      testIgnore: /auth\.setup\.spec\.js|auth\/(loginFeature|registerFeature)\.spec\.js/,
+    },
+  ],
+
+
+
   /*projects: [
     {
       name: 'chromium',
