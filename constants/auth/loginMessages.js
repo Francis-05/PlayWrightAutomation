@@ -2,6 +2,7 @@ module.exports = {
 
     containerMessages: {
         floatError: 'Incorrect email or password.',
+        floatSuccessLogin: 'Login Successfully',
     },
 
     errorMessages: {

@@ -18,6 +18,7 @@ test.describe('Login Feature', () => {
         test('TC-POS-01: Verify successfull login with valid credentials', async ({page}) => {
             await loginP.login(testData.validUser.email, testData.validUser.password);
             await expect(page).toHaveURL(baseUrls.dashboardURL.url);
+            await expect(loginP.toastMessage).toHaveText(messages.containerMessages.floatSuccessLogin);
         });
     });
 
