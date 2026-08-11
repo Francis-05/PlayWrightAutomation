@@ -1,8 +1,8 @@
 const {test, expect} = require ('@playwright/test');
-const {registerPage} = require ('../pages/registerPage.js');
-const testData = require ('../data/registerData.js');
-const messages = require ('../constants/registerMessages.js');
-const baseUrls = require ('../data/urls.js');
+const {registerPage} = require ('../../pages/auth/registerPage.js');
+const testData = require ('../../data/auth/registerData.js');
+const messages = require ('../../constants/auth/registerMessages.js');
+const baseUrls = require ('../../data/urls.js');
 
 
 test.describe('Register Feature', () => {

@@ -1,8 +1,8 @@
 const {test, expect} = require('@playwright/test');
-const {loginPage} = require ('../pages/loginPage.js');
-const messages = require('../constants/loginMessages.js');
-const testData = require ('../data/loginData.js');
-const baseUrls = require ('../data/urls.js');
+const {loginPage} = require ('../../pages/auth/loginPage.js');
+const messages = require('../../constants/auth/loginMessages.js');
+const testData = require ('../../data/auth/loginData.js');
+const baseUrls = require ('../../data/urls.js');
 
 test.describe('Login Feature', () => {
 
