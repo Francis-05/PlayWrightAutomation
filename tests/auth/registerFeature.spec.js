@@ -17,14 +17,14 @@ test.describe('Register Feature', () => {
     test.describe('Happy Path TestCase', () => {
         test('TC-POS-01: Verify if user can register account successfully', async ({page}) => {
             await registerP.registerUser(
-                testData.regfieldCredentials.fname, 
-                testData.regfieldCredentials.lname, 
+                testData.generateRandomUser.fname, 
+                testData.generateRandomUser.lname, 
                 testData.generateUniqueEmail(), 
-                testData.regfieldCredentials.phoneNum, 
+                testData.generateRandomUser.phoneNum, 
                 testData.regdropdownOccupation.doctor,
                 testData.regGender.male, 
-                testData.regfieldCredentials.password, 
-                testData.regfieldCredentials.confirmPass);
+                testData.generateRandomUser.password, 
+                testData.generateRandomUser.confirmPass);
             await expect(registerP.toastMessage).toHaveText(messages.containerMessages.floatSuccess);
             await registerP.clickLoginBtn();
             await expect(page).toHaveURL(baseUrls.loginPageURL.url);
@@ -34,14 +34,14 @@ test.describe('Register Feature', () => {
         radioGender.forEach((gender, index) => {
             test(`TC-POS-0${index + 2}: Verify if user register successfully with "${gender}" gender selected`, async ({page}) => {
                 await registerP.registerUser(
-                    testData.regfieldCredentials.fname, 
-                    testData.regfieldCredentials.lname, 
+                    testData.generateRandomUser.fname, 
+                    testData.generateRandomUser.lname, 
                     testData.generateUniqueEmail(), 
-                    testData.regfieldCredentials.phoneNum, 
+                    testData.generateRandomUser.phoneNum, 
                     testData.regdropdownOccupation.student,
                     gender,
-                    testData.regfieldCredentials.password, 
-                    testData.regfieldCredentials.confirmPass);
+                    testData.generateRandomUser.password, 
+                    testData.generateRandomUser.confirmPass);
                 await expect(registerP.toastMessage).toHaveText(messages.containerMessages.floatSuccess);
              });
         });
@@ -50,14 +50,14 @@ test.describe('Register Feature', () => {
         occupations.forEach((occupation, index) => {
             test(`TC-POS-04 (${index + 1}): Verify if successful registration - occupation ${occupation}`, async ({page}) => {
                 await registerP.registerUser(
-                    testData.regfieldCredentials.fname, 
-                    testData.regfieldCredentials.lname, 
+                    testData.generateRandomUser.fname, 
+                    testData.generateRandomUser.lname, 
                     testData.generateUniqueEmail(), 
                     testData.regfieldCredentials.phoneNum, 
                     occupation, 
                     testData.regGender.male,
-                    testData.regfieldCredentials.password, 
-                    testData.regfieldCredentials.confirmPass);
+                    testData.generateRandomUser.password, 
+                    testData.generateRandomUser.confirmPass);
                 await expect(registerP.toastMessage).toHaveText(messages.containerMessages.floatSuccess);
             });
         });
@@ -78,13 +78,13 @@ test.describe('Register Feature', () => {
 
         test('TC-NEG-02: Verify validation error for empty Firstname', async ({page}) => {
             await registerP.fillMandatoryFields({
-                lastname: testData.regfieldCredentials.lname,
+                lastname: testData.generateRandomUser.lname,
                 email: testData.generateUniqueEmail(),
-                phoneNumber: testData.regfieldCredentials.phoneNum,
+                phoneNumber: testData.generateRandomUser.phoneNum,
                 occupation: testData.regdropdownOccupation.doctor,
                 gender: testData.regGender.male,
-                password: testData.regfieldCredentials.password,
-                confirmPass: testData.regfieldCredentials.confirmPass});
+                password: testData.generateRandomUser.password,
+                confirmPass: testData.generateRandomUser.confirmPass});
             await registerP.clickCheckbox();
             await registerP.clickRegisterBtn();
             await expect(registerP.fnameFieldError).toHaveText(messages.errorMessages.requiredFname);
@@ -106,13 +106,13 @@ test.describe('Register Feature', () => {
 
         test('TC-NEG-04: Verify validation error for empty Email', async ({page}) => {
             await registerP.fillMandatoryFields({
-                firstname: testData.regfieldCredentials.fname,
-                lastname: testData.regfieldCredentials.lname,
-                phoneNumber: testData.regfieldCredentials.phoneNum,
+                firstname: testData.generateRandomUser.fname,
+                lastname: testData.generateRandomUser.lname,
+                phoneNumber: testData.generateRandomUser.phoneNum,
                 occupation: testData.regdropdownOccupation.doctor,
                 gender: testData.regGender.male,
-                password: testData.regfieldCredentials.password,
-                confirmPass: testData.regfieldCredentials.confirmPass});
+                password: testData.generateRandomUser.password,
+                confirmPass: testData.generateRandomUser.confirmPass});
             await registerP.clickCheckbox();
             await registerP.clickRegisterBtn();
             await expect(registerP.emailFieldError).toHaveText(messages.errorMessages.requiredemail);
@@ -120,13 +120,13 @@ test.describe('Register Feature', () => {
 
         test('TC-NEG-05: Verify validation error for empty Phone Number', async ({page}) => {
             await registerP.fillMandatoryFields({
-                firstname: testData.regfieldCredentials.fname,
-                lastname: testData.regfieldCredentials.lname,
+                firstname: testData.generateRandomUser.fname,
+                lastname: testData.generateRandomUser.lname,
                 email: testData.generateUniqueEmail(),
                 occupation: testData.regdropdownOccupation.doctor,
                 gender: testData.regGender.male,
-                password: testData.regfieldCredentials.password,
-                confirmPass: testData.regfieldCredentials.confirmPass});
+                password: testData.generateRandomUser.password,
+                confirmPass: testData.generateRandomUser.confirmPass});
             await registerP.clickCheckbox();
             await registerP.clickRegisterBtn();
             await expect(registerP.phoneNumFieldError).toHaveText(messages.errorMessages.requiredphoneNum);
@@ -134,13 +134,13 @@ test.describe('Register Feature', () => {
 
         test('TC-NEG-06: Verify validation error for empty Password with mistmatch error', async ({page}) => {
             await registerP.fillMandatoryFields({
-                firstname: testData.regfieldCredentials.fname,
-                lastname: testData.regfieldCredentials.lname,
+                firstname: testData.generateRandomUser.fname,
+                lastname: testData.generateRandomUser.lname,
                 email: testData.generateUniqueEmail(),
-                phoneNumber: testData.regfieldCredentials.phoneNum,
+                phoneNumber: testData.generateRandomUser.phoneNum,
                 occupation: testData.regdropdownOccupation.doctor,
                 gender: testData.regGender.male,
-                confirmPass: testData.regfieldCredentials.confirmPass});
+                confirmPass: testData.generateRandomUser.confirmPass});
             await registerP.clickCheckbox();
             await registerP.clickRegisterBtn();
             await expect(registerP.passFieldError).toHaveText(messages.errorMessages.requiredPass);
@@ -149,13 +149,13 @@ test.describe('Register Feature', () => {
 
         test('TC-NEG-07: Verify validation error for empty Confirm Password', async ({page}) => {
             await registerP.fillMandatoryFields({
-                firstname: testData.regfieldCredentials.fname,
-                lastname: testData.regfieldCredentials.lname,
+                firstname: testData.generateRandomUser.fname,
+                lastname: testData.generateRandomUser.lname,
                 email: testData.generateUniqueEmail(),
-                phoneNumber: testData.regfieldCredentials.phoneNum,
+                phoneNumber: testData.generateRandomUser.phoneNum,
                 occupation: testData.regdropdownOccupation.doctor,
                 gender: testData.regGender.male,
-                password: testData.regfieldCredentials.password,});
+                password: testData.generateRandomUser.password});
             await registerP.clickCheckbox();
             await registerP.clickRegisterBtn();
             await expect(registerP.confirmpassFieldError).toHaveText(messages.errorMessages.requiredConfirmpass);
@@ -163,10 +163,10 @@ test.describe('Register Feature', () => {
         
         test('TC-NEG-08: Verify validation error for mismatch Password & Confirm Password', async ({page}) => {
             await registerP.fillMandatoryFields({
-                firstname: testData.regfieldCredentials.fname,
-                lastname: testData.regfieldCredentials.lname,
+                firstname: testData.generateRandomUser.fname,
+                lastname: testData.generateRandomUser.lname,
                 email: testData.generateUniqueEmail(),
-                phoneNumber: testData.regfieldCredentials.phoneNum,
+                phoneNumber: testData.generateRandomUser.phoneNum,
                 occupation: testData.regdropdownOccupation.doctor,
                 gender: testData.regGender.male,
                 password: testData.passwordMismatch.password,
@@ -178,28 +178,28 @@ test.describe('Register Feature', () => {
        
         test('TC-NEG-09: Verify validation error for unchecked age checkbox', async ({page}) => {
                 await registerP.fillMandatoryFields({
-                    firstname: testData.regfieldCredentials.fname,
-                    lastname: testData.regfieldCredentials.lname,
+                    firstname: testData.generateRandomUser.fname,
+                    lastname: testData.generateRandomUser.lname,
                     email: testData.generateUniqueEmail(),
-                    phoneNumber: testData.regfieldCredentials.phoneNum,
+                    phoneNumber: testData.generateRandomUser.phoneNum,
                     occupation: testData.regdropdownOccupation.doctor,
                     gender: testData.regGender.male,
-                    password: testData.regfieldCredentials.password,
-                    confirmPass: testData.regfieldCredentials.confirmPass});
+                    password: testData.generateRandomUser.password,
+                    confirmPass: testData.generateRandomUser.confirmPass});
                 await registerP.clickRegisterBtn();
                 await expect(registerP.checkBoxError).toHaveText(messages.errorMessages.checkboxError);
         });
 
         test('TC-NEG-10: Verify error message for invalid email format', async ({page}) => {
                 await registerP.fillMandatoryFields({
-                    firstname: testData.regfieldCredentials.fname,
-                    lastname: testData.regfieldCredentials.lname,
+                    firstname: testData.generateRandomUser.fname,
+                    lastname: testData.generateRandomUser.lname,
                     email: testData.invalidUsers.email,
-                    phoneNumber: testData.regfieldCredentials.phoneNum,
+                    phoneNumber: testData.generateRandomUser.phoneNum,
                     occupation: testData.regdropdownOccupation.doctor,
                     gender: testData.regGender.male,
-                    password: testData.regfieldCredentials.password,
-                    confirmPass: testData.regfieldCredentials.confirmPass});
+                    password: testData.generateRandomUser.password,
+                    confirmPass: testData.generateRandomUser.confirmPass});
                 await registerP.clickCheckbox();
                 await registerP.clickRegisterBtn();
                 await expect(registerP.emailFieldError).toHaveText(messages.validMessages.validEmail);
@@ -222,14 +222,14 @@ test.describe('Register Feature', () => {
 
         test('TC-NEG-12: Verify error validation for letters/symbols in phone number field', async ({page}) => {
                 await registerP.fillMandatoryFields({
-                    firstname: testData.regfieldCredentials.fname,
-                    lastname: testData.regfieldCredentials.lname,
+                    firstname: testData.generateRandomUser.fname,
+                    lastname: testData.generateRandomUser.lname,
                     email: testData.generateUniqueEmail(),
                     phoneNumber: testData.invalidUsers.invalidphoneNum,
                     occupation: testData.regdropdownOccupation.doctor,
                     gender: testData.regGender.male,
-                    password: testData.regfieldCredentials.password,
-                    confirmPass: testData.regfieldCredentials.confirmPass});
+                    password: testData.generateRandomUser.password,
+                    confirmPass: testData.generateRandomUser.confirmPass});
                 await registerP.clickCheckbox();
                 await registerP.clickRegisterBtn();
                 await expect(registerP.phoneNumFieldError).toHaveText(messages.validMessages.validphoneNum);
@@ -237,14 +237,14 @@ test.describe('Register Feature', () => {
 
         test('TC-NEG-13: Verify error validation for short/long digits in phone number field', async ({page}) => {
                 await registerP.fillMandatoryFields({
-                    firstname: testData.regfieldCredentials.fname,
-                    lastname: testData.regfieldCredentials.lname,
+                    firstname: testData.generateRandomUser.fname,
+                    lastname: testData.generateRandomUser.lname,
                     email: testData.generateUniqueEmail(),
                     phoneNumber: testData.invalidUsers.lengthphoneNum,
                     occupation: testData.regdropdownOccupation.doctor,
                     gender: testData.regGender.male,
-                    password: testData.regfieldCredentials.password,
-                    confirmPass: testData.regfieldCredentials.confirmPass});
+                    password: testData.generateRandomUser.password,
+                    confirmPass: testData.generateRandomUser.confirmPass});
                 await registerP.clickCheckbox();
                 await registerP.clickRegisterBtn();
                 await expect(registerP.phoneNumFieldError).toHaveText(messages.inputValMessages.lengthphoneNum);
@@ -252,10 +252,10 @@ test.describe('Register Feature', () => {
 
         test('TC-NEG-14: Verify error validation for password that doesnt meet complexity', async ({page}) => {
                 await registerP.fillMandatoryFields({
-                    firstname: testData.regfieldCredentials.fname,
-                    lastname: testData.regfieldCredentials.lname,
+                    firstname: testData.generateRandomUser.fname,
+                    lastname: testData.generateRandomUser.lname,
                     email: testData.generateUniqueEmail(),
-                    phoneNumber: testData.regfieldCredentials.phoneNum,
+                    phoneNumber: testData.generateRandomUser.phoneNum,
                     occupation: testData.regdropdownOccupation.doctor,
                     gender: testData.regGender.male,
                     password: testData.shortPassword.password,

@@ -1,10 +1,21 @@
-function generateUniqueEmail () {
-    return `test${Date.now()}${Math.floor(Math.random() * 1000)}@g.com`;
-}
+// function generateUniqueEmail () {
+//     return `test${Date.now()}${Math.floor(Math.random() * 1000)}@g.com`;
+// }
+
+const { faker } = require('@faker-js/faker');
+const fakerData = require ('../../utils/generateUser.js');
 
 module.exports = {
     
-    generateUniqueEmail,
+    generateUniqueEmail: fakerData.generateEmail,
+
+    generateRandomUser: {
+        fname: fakerData.generateFname(),
+        lname: fakerData.generateLname(),
+        phoneNum: fakerData.generatePhoneNum(),
+        password: fakerData.password,
+        confirmPass: fakerData.confirmPass,
+    },
 
     regfieldCredentials: {
         fname: "John",
