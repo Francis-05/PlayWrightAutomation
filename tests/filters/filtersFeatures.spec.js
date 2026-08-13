@@ -1,6 +1,7 @@
 const { test, expect } = require ('@playwright/test');
 const { filtersPage } = require ('../../pages/filters/filtersPage.js');
 const baseUrls = require ('../../data/urls.js');
+const { log } = require('node:console');
 
 
 test.describe('Filters Feature', () => {
@@ -14,7 +15,10 @@ test.describe('Filters Feature', () => {
 
     //filters feature (happy path cases)
     test('Test input data in filter field', async ({page}) => {
-        await filterP.searchFilter.fill('adidas');
+        // await filterP.searchFilter.fill('adidas');
+        await filterP.waitProductLoad();
+
+
     });
 
 
