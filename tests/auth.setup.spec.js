@@ -2,7 +2,6 @@ const {test, expect} = require ('@playwright/test');
 const {loginPage} = require ('../pages/auth/loginPage.js');
 const testData = require ('../data/auth/loginData.js');
 const baseUrls = require ('../data/urls.js');
-const { log } = require('node:console');
 
 const authFile = 'playwright/.auth/user.json';
 
