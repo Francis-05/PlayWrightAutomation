@@ -20,10 +20,9 @@ test.describe('Filters Feature', () => {
 
     //filters feature (happy path cases)
     test.describe('Happy Path TestCase', () => {
-        test('TC_FLT_001: Verify text search filters products correctly by keyword', async ({page}) => {
+        test('TC_FLT_001: Verify text search filters products correctly by product searched', async ({page}) => {
             await filterP.searchProduct(testData.searchItems.shoeItems);
-
-            await expect(dashboardP.productCards.first()).toContainText(testData.searchItems.shoeItems);
+            await expect(dashboardP.productCards).toContainText(testData.searchItems.shoeItems);
 
             const products = await dashboardP.getAllproducts();
 

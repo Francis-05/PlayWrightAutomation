@@ -4,7 +4,7 @@ class dashboardPage extends basePage {
     constructor (page) {
         super(page);
 
-        this.productCards = page.locator('div.card div.card-body h5');
+        this.productCards = page.locator('div.card div.card-body b');
     }
 
     async waitProductLoad() {
@@ -14,6 +14,7 @@ class dashboardPage extends basePage {
     async getAllproducts() {
         return await this.productCards.allTextContents();
     }
+
 }
 
 module.exports = { dashboardPage };
