@@ -4,15 +4,20 @@ class dashboardPage extends basePage {
     constructor (page) {
         super(page);
 
-        this.productCards = page.locator('div.card div.card-body b');
+        this.productTitle = page.locator('div.card div.card-body b');
+        this.productCards = page.locator('div.card')
     }
 
     async waitProductLoad() {
         await this.productCards.first().waitFor({ state: 'visible' });
     }
 
-    async getAllproducts() {
-        return await this.productCards.allTextContents();
+    async getAllproductTitle() {
+        return await this.productTitle.allTextContents();
+    }
+
+    async getAllproductCards() {
+        return await this.productCards.all();
     }
 
 }

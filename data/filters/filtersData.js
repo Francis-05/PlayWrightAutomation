@@ -2,8 +2,8 @@ module.exports = {
 
     searchItems: {
         shoeItems: "ADIDAS ORIGINAL",
-        dressItems: "ZARA COAT",
-        deviceItems: "IPHONE 13 PRO",
+        dressItems: "ZARA COAT 3",
+        deviceItems: "iphone 13 pro",
     },
 
     searchCategories: {
