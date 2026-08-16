@@ -6,6 +6,11 @@ module.exports = {
         deviceItems: "iphone 13 pro",
     },
 
+    searchPriceRange: {
+        minPrice: "10000",
+        maxPrice: "12000", 
+    },
+
     searchCategories: {
         fashion: "fashion",
         electronics: "electronics",

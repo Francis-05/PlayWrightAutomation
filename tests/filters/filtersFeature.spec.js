@@ -44,8 +44,27 @@ test.describe('Filters Feature', () => {
                     const products = await dashboardP.getAllproductCards();
                     await expect(products.length).toBe(productCount);
                 }
-                
+
                 await filterP.selectCategories(category);
+            }
+        });
+
+        test('TC_FLT_003: Verify filtering by price range displays products within range', async ({page}) => {
+            await filterP.filterPriceRange(testData.searchPriceRange.minPrice, testData.searchPriceRange.maxPrice);
+            const priceCount = await dashboardP.productPrices;
+            const count = await priceCount.count();
+            
+            await expect(count).toBeGreaterThan(0);
+
+            const minPrice = parseFloat(testData.searchPriceRange.minPrice);
+            const maxPrice = parseFloat(testData.searchPriceRange.maxPrice);
+            for (let i=0; i< count; i++) {
+                const priceText = await priceCount.nth(i).textContent();
+
+                const numericPrice = parseFloat(priceText.replace(/[^0-9.]/g, ''));
+        
+                expect(numericPrice).toBeGreaterThanOrEqual(minPrice);
+                expect(numericPrice).toBeLessThanOrEqual(maxPrice);
             }
         });
 

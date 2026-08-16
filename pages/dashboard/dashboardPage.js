@@ -6,6 +6,7 @@ class dashboardPage extends basePage {
 
         this.productTitle = page.locator('div.card div.card-body b');
         this.productCards = page.locator('div.card')
+        this.productPrices = page.locator('div.card div.card-body [style="font-weight: 300;"]');
     }
 
     async waitProductLoad() {
@@ -18,6 +19,10 @@ class dashboardPage extends basePage {
 
     async getAllproductCards() {
         return await this.productCards.all();
+    }
+
+    async getAllPrices() {
+        return await this.productPrices.all();
     }
 
 }
