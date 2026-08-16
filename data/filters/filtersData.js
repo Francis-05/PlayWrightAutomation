@@ -16,5 +16,13 @@ module.exports = {
         electronics: "electronics",
         household: "household",
     },
+
+    searchSubCategories: {
+        tshirt: "t-shirts",
+        shirts: "shirts",
+        shoes: "shoes",
+        mobiles: "mobiles",
+        laptops: "laptops",
+    },
     
 }

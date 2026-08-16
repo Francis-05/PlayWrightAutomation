@@ -31,7 +31,7 @@ test.describe('Filters Feature', () => {
             }
         });
 
-        test('TC_FLT_002: Verify filtering by category (e.g fashion/electronics/household) displays correct products', async ({page}) => {
+        test('TC_FLT_002: Verify filtering by category displays correct products', async ({page}) => {
             const categories = Object.values(testData.searchCategories);
 
             for(const category of categories) {
@@ -68,15 +68,24 @@ test.describe('Filters Feature', () => {
             }
         });
 
+        test('TC_FLT_004: Verify filtering by sub-category displays correct products', async ({page}) => {
+            const subCategories = Object.values(testData.searchSubCategories);
 
+            for(const subCat of subCategories) {
+                await filterP.selectSubCategories(subCat);
+                const productCount = await dashboardP.productCards.count();
 
+                if(productCount === 0) {
+                    await expect(dashboardP.toastMessage).toHaveText(messages.containerMessages.floatNoProduct);
+                } else {
+                    const products = await dashboardP.getAllproductCards();
+                    await expect(products.length).toBe(productCount);
+                }
 
+                await filterP.selectSubCategories(subCat);
+            }
+        });
 
     });
-
-
-
-
-
 
 });
