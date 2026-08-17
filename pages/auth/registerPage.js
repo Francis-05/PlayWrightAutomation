@@ -16,8 +16,10 @@ class registerPage extends basePage {
         this.password = page.getByRole('textbox', { name: 'Passsword' });
         this.confirmPass = page.getByRole('textbox', { name: 'Confirm Password' });
         this.confirmCheckbox = page.getByRole('checkbox');
+
         this.registerButton = page.getByRole('button', { name: 'Register' });
         this.loginBtn = page.getByRole('button', { name: 'Login' });
+
         this.fnameFieldError = page.locator('div.form-group', {has: this.firstname}).locator('div.invalid-feedback div');
         this.lnameFieldError = page.locator('div.form-group', {has: this.lastname}).locator('div.invalid-feedback div');
         this.emailFieldError = page.locator('div.form-group', {has: this.email}).locator('div.invalid-feedback div');
@@ -25,6 +27,7 @@ class registerPage extends basePage {
         this.passFieldError = page.locator('div.form-group', {has: this.password}).locator('div.invalid-feedback div');
         this.confirmpassFieldError = page.locator('div.form-group', {has: this.confirmPass}).locator('div.invalid-feedback div');
         this.checkBoxError = page.getByText('*Please check above checkbox');
+        
         this.loginHereBtn = page.locator('p.login-wrapper-footer-text');
 
     }

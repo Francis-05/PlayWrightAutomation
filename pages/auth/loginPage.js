@@ -7,9 +7,12 @@ class loginPage extends basePage {
         //login feature locators
         this.emailInput = page.getByRole('textbox', { name: 'email@example.com' });
         this.passwordInput = page.getByRole('textbox', { name: 'enter your passsword' });
+
         this.loginButton = page.getByRole('button', {name: 'Login'});
+
         this.emailFieldError = page.locator('div.form-group', {has: this.emailInput}).locator('div.invalid-feedback div');
         this.passwordFieldError = page.locator('div.form-group', {has: this.passwordInput}).locator('div.invalid-feedback div');
+        
         this.forgotPassword = page.getByRole('link', {name: 'Forgot password'});
         this.registerLink = page.getByText('Don\'t have an account?');
 
