@@ -86,6 +86,25 @@ test.describe('Filters Feature', () => {
             }
         });
 
+        test('TC_FLT_005: Verify filtering by search-For displays correct products', async ({}) => {
+            const searchFor = Object.values(testData.searchFor);
+
+            for(const search of searchFor) {
+                await filterP.searchForMenWomen(search);
+                const productCount = await dashboardP.productCards.count();
+
+                if(productCount === 0) {
+                    await expect(dashboardP.toastMessage).toHaveText(messages.containerMessages.floatNoProduct);
+                } else {
+                    const products = await dashboardP.getAllproductCards();
+                    await expect(products.length).toBe(productCount);
+                }
+
+                await filterP.searchForMenWomen(search);
+            }
+        });
+
+
     });
 
 });

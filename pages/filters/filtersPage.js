@@ -20,6 +20,9 @@ class filtersPage extends basePage {
         this.shoesCheckbox = page.locator('div.form-group:visible').filter({ hasText: 'shoes' }).locator('input[type="checkbox"]');
         this.mobilesCheckbox = page.locator('div.form-group:visible').filter({ hasText: 'mobiles' }).locator('input[type="checkbox"]');
         this.laptopsCheckbox = page.locator('div.form-group:visible').filter({ hasText: 'laptops' }).locator('input[type="checkbox"]');
+
+        this.forMen = page.locator('div.form-group:visible').filter({ hasText: /^men$/ }).locator('input[type="checkbox"]');
+        this.forWomen = page.locator('div.form-group:visible').filter({ hasText: 'women' }).locator('input[type="checkbox"]');
     }
 
     async searchProduct(keyword) {
@@ -70,6 +73,20 @@ class filtersPage extends basePage {
             await this.page.waitForTimeout(1000);
         } else {
             throw new Error(`Unknown sub-category: "${subCategories}"`);
+        }
+    }
+
+    async searchForMenWomen (searchFor) {
+        const categoriesMap = {
+            men: this.forMen,
+            women: this.forWomen,
+        }
+        const checkbox = categoriesMap[(searchFor.toLowerCase())];
+        if(checkbox) {
+            await checkbox.click();
+            await this.page.waitForTimeout(1000);
+        } else {
+            throw new Error(`Unknown search-For: "${searchFor}"`);
         }
     }
 

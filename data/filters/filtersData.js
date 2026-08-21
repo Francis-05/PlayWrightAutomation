@@ -24,5 +24,10 @@ module.exports = {
         mobiles: "mobiles",
         laptops: "laptops",
     },
+
+    searchFor: {
+        men: "men",
+        women: "women",
+    },
     
 }
