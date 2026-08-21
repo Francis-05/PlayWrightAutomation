@@ -86,7 +86,7 @@ test.describe('Filters Feature', () => {
             }
         });
 
-        test('TC_FLT_005: Verify filtering by search-For displays correct products', async ({}) => {
+        test('TC_FLT_005: Verify filtering by search-For displays correct products', async ({page}) => {
             const searchFor = Object.values(testData.searchFor);
 
             for(const search of searchFor) {
