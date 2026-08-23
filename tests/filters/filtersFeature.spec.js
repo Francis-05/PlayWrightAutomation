@@ -1,27 +1,18 @@
-const { test, expect } = require ('@playwright/test');
-const { filtersPage } = require ('../../pages/filters/filtersPage.js');
-const { dashboardPage } = require ('../../pages/dashboard/dashboardPage.js');
+const {test, expect} = require ('../../fixtures/fixture.js');
 const baseUrls = require ('../../data/urls.js');
 const messages = require ('../../constants/filters/filtersMessages.js');
 const testData = require ('../../data/filters/filtersData.js');
 
-
 test.describe('Filters Feature', () => {
 
-    let filterP;
-    let dashboardP;
-
-    test.beforeEach(async ({ page }) => {
-        filterP = new filtersPage(page);
-        dashboardP = new dashboardPage(page);
-
+    test.beforeEach(async ({ filterP, dashboardP }) => {
         await filterP.goto(baseUrls.dashboardURL.url);
         await dashboardP.waitProductLoad();
     });
 
     //filters feature (happy path cases)
     test.describe('Happy Path TestCase', () => {
-        test('TC_FLT_001: Verify text search filters products correctly by product searched', async ({page}) => {
+        test('TC_FLT_001: Verify text search filters products correctly by product searched', async ({ filterP, dashboardP }) => {
             const items = Object.values(testData.searchItems);
 
             for(const item of items) {
@@ -31,7 +22,7 @@ test.describe('Filters Feature', () => {
             }
         });
 
-        test('TC_FLT_002: Verify filtering by category displays correct products', async ({page}) => {
+        test('TC_FLT_002: Verify filtering by category displays correct products', async ({ filterP, dashboardP }) => {
             const categories = Object.values(testData.searchCategories);
 
             for(const category of categories) {
@@ -49,7 +40,7 @@ test.describe('Filters Feature', () => {
             }
         });
 
-        test('TC_FLT_003: Verify filtering by price range displays products within range', async ({page}) => {
+        test('TC_FLT_003: Verify filtering by price range displays products within range', async ({ filterP, dashboardP }) => {
             await filterP.filterPriceRange(testData.searchPriceRange.minPrice, testData.searchPriceRange.maxPrice);
             const priceCount = await dashboardP.productPrices;
             const count = await priceCount.count();
@@ -68,7 +59,7 @@ test.describe('Filters Feature', () => {
             }
         });
 
-        test('TC_FLT_004: Verify filtering by sub-category displays correct products', async ({page}) => {
+        test('TC_FLT_004: Verify filtering by sub-category displays correct products', async ({ filterP, dashboardP }) => {
             const subCategories = Object.values(testData.searchSubCategories);
 
             for(const subCat of subCategories) {
@@ -86,7 +77,7 @@ test.describe('Filters Feature', () => {
             }
         });
 
-        test('TC_FLT_005: Verify filtering by search-For displays correct products', async ({page}) => {
+        test('TC_FLT_005: Verify filtering by search-For displays correct products', async ({ filterP, dashboardP }) => {
             const searchFor = Object.values(testData.searchFor);
 
             for(const search of searchFor) {

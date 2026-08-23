@@ -1,21 +1,17 @@
-const {test, expect} = require ('@playwright/test');
-const {registerPage} = require ('../../pages/auth/registerPage.js');
+const {test, expect} = require ('../../fixtures/fixture.js');
 const testData = require ('../../data/auth/registerData.js');
 const messages = require ('../../constants/auth/registerMessages.js');
 const baseUrls = require ('../../data/urls.js');
 
-
 test.describe('Register Feature', () => {
-    let registerP;
 
-    test.beforeEach(async ({page}) => {
-        registerP = new registerPage(page);
+    test.beforeEach(async ({ registerP }) => {
         await registerP.goto(baseUrls.registerURL.url);
     });
 
     //register feature (happy path testcase)
     test.describe('Happy Path TestCase', () => {
-        test('TC-POS-01: Verify if user can register account successfully', async ({page}) => {
+        test('TC-POS-01: Verify if user can register account successfully', async ({ registerP, page }) => {
             await registerP.registerUser(
                 testData.generateRandomUser.fname, 
                 testData.generateRandomUser.lname, 
@@ -32,7 +28,7 @@ test.describe('Register Feature', () => {
 
         const radioGender = Object.values(testData.regGender);
         radioGender.forEach((gender, index) => {
-            test(`TC-POS-0${index + 2}: Verify if user register successfully with "${gender}" gender selected`, async ({page}) => {
+            test(`TC-POS-0${index + 2}: Verify if user register successfully with "${gender}" gender selected`, async ({ registerP }) => {
                 await registerP.registerUser(
                     testData.generateRandomUser.fname, 
                     testData.generateRandomUser.lname, 
@@ -48,7 +44,7 @@ test.describe('Register Feature', () => {
 
         const occupations = Object.values(testData.regdropdownOccupation);
         occupations.forEach((occupation, index) => {
-            test(`TC-POS-04 (${index + 1}): Verify if successful registration - occupation ${occupation}`, async ({page}) => {
+            test(`TC-POS-04 (${index + 1}): Verify if successful registration - occupation ${occupation}`, async ({ registerP }) => {
                 await registerP.registerUser(
                     testData.generateRandomUser.fname, 
                     testData.generateRandomUser.lname, 
@@ -65,7 +61,7 @@ test.describe('Register Feature', () => {
 
     //register feature (negative testcases)
     test.describe('Negative TestCases', () => {
-        test('TC-NEG-01: Verify validation errors for empty mandatory fields', async({page}) => {
+        test('TC-NEG-01: Verify validation errors for empty mandatory fields', async({ registerP }) => {
             await registerP.clickRegisterBtn();
             await expect(registerP.fnameFieldError).toHaveText(messages.errorMessages.requiredFname);
             // TODO: Bug - add requiredLname back once UI/UX fixes the missing error message
@@ -76,7 +72,7 @@ test.describe('Register Feature', () => {
             await expect(registerP.checkBoxError).toHaveText(messages.errorMessages.checkboxError);
         });
 
-        test('TC-NEG-02: Verify validation error for empty Firstname', async ({page}) => {
+        test('TC-NEG-02: Verify validation error for empty Firstname', async ({ registerP }) => {
             await registerP.fillMandatoryFields({
                 lastname: testData.generateRandomUser.lname,
                 email: testData.generateUniqueEmail(),
@@ -104,7 +100,7 @@ test.describe('Register Feature', () => {
         //     await expect(registerP.lnameFieldError).toHaveText(messages.errorMessages.requiredLname);
         // });
 
-        test('TC-NEG-04: Verify validation error for empty Email', async ({page}) => {
+        test('TC-NEG-04: Verify validation error for empty Email', async ({ registerP }) => {
             await registerP.fillMandatoryFields({
                 firstname: testData.generateRandomUser.fname,
                 lastname: testData.generateRandomUser.lname,
@@ -118,7 +114,7 @@ test.describe('Register Feature', () => {
             await expect(registerP.emailFieldError).toHaveText(messages.errorMessages.requiredemail);
         });
 
-        test('TC-NEG-05: Verify validation error for empty Phone Number', async ({page}) => {
+        test('TC-NEG-05: Verify validation error for empty Phone Number', async ({ registerP }) => {
             await registerP.fillMandatoryFields({
                 firstname: testData.generateRandomUser.fname,
                 lastname: testData.generateRandomUser.lname,
@@ -132,7 +128,7 @@ test.describe('Register Feature', () => {
             await expect(registerP.phoneNumFieldError).toHaveText(messages.errorMessages.requiredphoneNum);
         });
 
-        test('TC-NEG-06: Verify validation error for empty Password with mistmatch error', async ({page}) => {
+        test('TC-NEG-06: Verify validation error for empty Password with mistmatch error', async ({ registerP }) => {
             await registerP.fillMandatoryFields({
                 firstname: testData.generateRandomUser.fname,
                 lastname: testData.generateRandomUser.lname,
@@ -147,7 +143,7 @@ test.describe('Register Feature', () => {
             await expect(registerP.confirmpassFieldError).toHaveText(messages.errorMessages.mistmatchPass);
         });
 
-        test('TC-NEG-07: Verify validation error for empty Confirm Password', async ({page}) => {
+        test('TC-NEG-07: Verify validation error for empty Confirm Password', async ({ registerP }) => {
             await registerP.fillMandatoryFields({
                 firstname: testData.generateRandomUser.fname,
                 lastname: testData.generateRandomUser.lname,
@@ -161,7 +157,7 @@ test.describe('Register Feature', () => {
             await expect(registerP.confirmpassFieldError).toHaveText(messages.errorMessages.requiredConfirmpass);
         });
         
-        test('TC-NEG-08: Verify validation error for mismatch Password & Confirm Password', async ({page}) => {
+        test('TC-NEG-08: Verify validation error for mismatch Password & Confirm Password', async ({ registerP }) => {
             await registerP.fillMandatoryFields({
                 firstname: testData.generateRandomUser.fname,
                 lastname: testData.generateRandomUser.lname,
@@ -176,7 +172,7 @@ test.describe('Register Feature', () => {
             await expect(registerP.confirmpassFieldError).toHaveText(messages.errorMessages.mistmatchPass);
         });
        
-        test('TC-NEG-09: Verify validation error for unchecked age checkbox', async ({page}) => {
+        test('TC-NEG-09: Verify validation error for unchecked age checkbox', async ({ registerP }) => {
                 await registerP.fillMandatoryFields({
                     firstname: testData.generateRandomUser.fname,
                     lastname: testData.generateRandomUser.lname,
@@ -190,7 +186,7 @@ test.describe('Register Feature', () => {
                 await expect(registerP.checkBoxError).toHaveText(messages.errorMessages.checkboxError);
         });
 
-        test('TC-NEG-10: Verify error message for invalid email format', async ({page}) => {
+        test('TC-NEG-10: Verify error message for invalid email format', async ({ registerP }) => {
                 await registerP.fillMandatoryFields({
                     firstname: testData.generateRandomUser.fname,
                     lastname: testData.generateRandomUser.lname,
@@ -205,7 +201,7 @@ test.describe('Register Feature', () => {
                 await expect(registerP.emailFieldError).toHaveText(messages.validMessages.validEmail);
         });
 
-        test('TC-NEG-11: Verify if error message appears for duplicate user registration', async ({page}) => {
+        test('TC-NEG-11: Verify if error message appears for duplicate user registration', async ({ registerP }) => {
                 await registerP.fillMandatoryFields({
                     firstname: testData.alreadyRegisteredUser.fname,
                     lastname: testData.alreadyRegisteredUser.lname,
@@ -220,7 +216,7 @@ test.describe('Register Feature', () => {
                 await expect(registerP.toastMessage).toHaveText(messages.containerMessages.floatErrorEmailDuplicate);
         });
 
-        test('TC-NEG-12: Verify error validation for letters/symbols in phone number field', async ({page}) => {
+        test('TC-NEG-12: Verify error validation for letters/symbols in phone number field', async ({ registerP }) => {
                 await registerP.fillMandatoryFields({
                     firstname: testData.generateRandomUser.fname,
                     lastname: testData.generateRandomUser.lname,
@@ -235,7 +231,7 @@ test.describe('Register Feature', () => {
                 await expect(registerP.phoneNumFieldError).toHaveText(messages.validMessages.validphoneNum);
         });
 
-        test('TC-NEG-13: Verify error validation for short/long digits in phone number field', async ({page}) => {
+        test('TC-NEG-13: Verify error validation for short/long digits in phone number field', async ({ registerP }) => {
                 await registerP.fillMandatoryFields({
                     firstname: testData.generateRandomUser.fname,
                     lastname: testData.generateRandomUser.lname,
@@ -250,7 +246,7 @@ test.describe('Register Feature', () => {
                 await expect(registerP.phoneNumFieldError).toHaveText(messages.inputValMessages.lengthphoneNum);
         });
 
-        test('TC-NEG-14: Verify error validation for password that doesnt meet complexity', async ({page}) => {
+        test('TC-NEG-14: Verify error validation for password that doesnt meet complexity', async ({ registerP }) => {
                 await registerP.fillMandatoryFields({
                     firstname: testData.generateRandomUser.fname,
                     lastname: testData.generateRandomUser.lname,
@@ -268,7 +264,7 @@ test.describe('Register Feature', () => {
 
     //register feature (UI / Placeholder Validation)
     test.describe('UI / Placeholder Validation', () => {
-        test('TC-UI-01: Verify if placeholder text is correct for all fields', async ({page}) => {
+        test('TC-UI-01: Verify if placeholder text is correct for all fields', async ({ registerP }) => {
             await expect(registerP.firstname).toHaveAttribute('placeholder', testData.registerFieldPlaceholders.fname);
             await expect(registerP.lastname).toHaveAttribute('placeholder', testData.registerFieldPlaceholders.lname);
             await expect(registerP.email).toHaveAttribute('placeholder', testData.registerFieldPlaceholders.email);
@@ -277,29 +273,29 @@ test.describe('Register Feature', () => {
             await expect(registerP.confirmPass).toHaveAttribute('placeholder', testData.registerFieldPlaceholders.confirmPass);
         });
 
-        test('TC-UI-02: Verify if "Choose your occupation" set as default display in dropdown', async ({page}) => {
+        test('TC-UI-02: Verify if "Choose your occupation" set as default display in dropdown', async ({ registerP }) => {
             await expect(registerP.dropdownDefault).toHaveText(testData.registerFieldPlaceholders.dropdown);
         });
 
-        test('TC-UI-03: Verify if all mandatory fields are empty by default on page load', async ({page}) => {
+        test('TC-UI-03: Verify if all mandatory fields are empty by default on page load', async ({ registerP }) => {
             const emptyFields = [registerP.firstname, registerP.lastname, registerP.email, registerP.phoneNumber, registerP.occupationDrop, registerP.password, registerP.confirmPass];
             for(const empty of emptyFields) {
                 await expect(empty).toHaveValue(testData.emptyRegisterFields.defaultEmpty);
             }
         });
 
-        test('TC-UI-04: Verify if gender radio buttons are default unselected', async ({page}) => {
+        test('TC-UI-04: Verify if gender radio buttons are default unselected', async ({ registerP }) => {
             const genderRadio = [registerP.genderMale, registerP.genderFemale];
             for(const radio of genderRadio) {
                 await expect(radio).not.toBeChecked();
             }
         });
 
-        test('TC-UI-05: Verify if checkbox for age is default unchecked', async ({page}) => {
+        test('TC-UI-05: Verify if checkbox for age is default unchecked', async ({ registerP }) => {
             await expect(registerP.confirmCheckbox).not.toBeChecked();
         });
 
-        test('TC-UI-06: Verify password and confirm password field is masked when character is inputted', async ({page}) => {
+        test('TC-UI-06: Verify password and confirm password field is masked when character is inputted', async ({ registerP }) => {
             const maskPassword = [registerP.password, registerP.confirmPass];
             for(const masked of maskPassword) {
                 await expect(masked).toHaveAttribute('type', 'password');
@@ -309,7 +305,7 @@ test.describe('Register Feature', () => {
 
     //register feature (UI / Placeholder Validation)
     test.describe('Navigation and Link Functionality', () => {
-        test('TC-NAV-01: Verify clicking "Already have an account? Login here" redirects to login page', async ({page}) => {
+        test('TC-NAV-01: Verify clicking "Already have an account? Login here" redirects to login page', async ({ registerP, page }) => {
             await registerP.clickLoginHereBtn();
             await expect(page).toHaveURL(baseUrls.loginPageURL.url);
         });
