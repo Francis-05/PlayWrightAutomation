@@ -125,6 +125,11 @@ test.describe('Filters Feature', () => {
             await expect(dashboardP.toastMessage).toHaveText(messages.containerMessages.floatNoProduct);
         });
 
+        test('TC_FLT_NEG_003: Verify price range with min price greater than max price', async ({ filterP, dashboardP}) => {
+            await filterP.filterPriceRange(testData.reversePriceRange.minPrice, testData.reversePriceRange.maxPrice);
+            await expect(dashboardP.productCards).toHaveCount(0);
+            await expect(dashboardP.toastMessage).toHaveText(messages.containerMessages.floatNoProduct);
+        });
 
     });
 

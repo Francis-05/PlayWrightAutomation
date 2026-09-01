@@ -1,3 +1,5 @@
+const { reverse } = require("node:dns");
+
 module.exports = {
 
     searchItems: {
@@ -33,6 +35,11 @@ module.exports = {
     incorrectDataInput: {
         nonExistentData: "NonExistentItem12345XYZ",
         specialChar: "!@#$%^&*()_+",
+    },
+
+    reversePriceRange: {
+        minPrice: "50000",
+        maxPrice: "10000",
     },
     
 }
