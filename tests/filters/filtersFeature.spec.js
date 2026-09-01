@@ -112,10 +112,17 @@ test.describe('Filters Feature', () => {
         });
     });
 
-    // filters feature (negative cases)
-    // test.describe('Negative TestCases', () => {
+    //filters feature (negative cases)
+    test.describe('Negative TestCases', () => {
+        test('TC_FLT_NEG_001: Verify search with non-existent product name displays no results', async ({ filterP, dashboardP}) => {
+            await filterP.searchProduct(testData.incorrectDataInput.nonExistentData);
+            await expect(dashboardP.productCards).toHaveCount(0);
+            await expect(dashboardP.toastMessage).toHaveText(messages.containerMessages.floatNoProduct);
+        });
 
-    // });
+
+        
+    });
 
 
 

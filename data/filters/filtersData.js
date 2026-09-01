@@ -29,5 +29,11 @@ module.exports = {
         men: "men",
         women: "women",
     },
+
+    incorrectDataInput: {
+        nonExistentData: "NonExistentItem12345XYZ",
+        specialChar: "!@#$%^&*()_+",
+
+    },
     
 }
