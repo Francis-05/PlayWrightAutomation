@@ -139,9 +139,17 @@ test.describe('Filters Feature', () => {
 
             await expect(dashboardP.toastMessage).toHaveText(messages.containerMessages.floatNoProduct);
         });
+    });
+
+    //filter feature (UI and Placeholder Validation)
+    test.describe('UI and Placeholder TestCases', () => {
+        test('TC_FLT_UI_001: Verify search input placeholder text', async ({ filterP }) => {
+            await expect(filterP.searchInput).toHaveAttribute('placeholder', messages.searchFilterPlaceholder.search);
+        });
+        
 
 
-
+    
     });
 
 
