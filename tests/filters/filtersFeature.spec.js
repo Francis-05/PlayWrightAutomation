@@ -2,7 +2,6 @@ const {test, expect} = require ('../../fixtures/fixture.js');
 const baseUrls = require ('../../data/urls.js');
 const messages = require ('../../constants/filters/filtersMessages.js');
 const testData = require ('../../data/filters/filtersData.js');
-const { exec } = require('node:child_process');
 
 test.describe('Filters Feature', () => {
 
@@ -120,8 +119,13 @@ test.describe('Filters Feature', () => {
             await expect(dashboardP.toastMessage).toHaveText(messages.containerMessages.floatNoProduct);
         });
 
+        test('TC_FLT_NEG_002: Verify search with special characters', async ({ filterP, dashboardP}) => {
+            await filterP.searchProduct(testData.incorrectDataInput.specialChar);
+            await expect(dashboardP.productCards).toHaveCount(0);
+            await expect(dashboardP.toastMessage).toHaveText(messages.containerMessages.floatNoProduct);
+        });
 
-        
+
     });
 
 

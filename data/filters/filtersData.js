@@ -33,7 +33,6 @@ module.exports = {
     incorrectDataInput: {
         nonExistentData: "NonExistentItem12345XYZ",
         specialChar: "!@#$%^&*()_+",
-
     },
     
 }
