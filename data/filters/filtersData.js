@@ -35,6 +35,7 @@ module.exports = {
     incorrectDataInput: {
         nonExistentData: "NonExistentItem12345XYZ",
         specialChar: "!@#$%^&*()_+",
+        emptySearch: " ",
     },
 
     reversePriceRange: {

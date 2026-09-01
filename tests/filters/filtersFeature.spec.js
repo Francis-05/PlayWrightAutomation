@@ -113,23 +113,34 @@ test.describe('Filters Feature', () => {
 
     //filters feature (negative cases)
     test.describe('Negative TestCases', () => {
-        test('TC_FLT_NEG_001: Verify search with non-existent product name displays no results', async ({ filterP, dashboardP}) => {
+        test('TC_FLT_NEG_001: Verify search with non-existent product name displays no results', async ({ filterP, dashboardP }) => {
             await filterP.searchProduct(testData.incorrectDataInput.nonExistentData);
             await expect(dashboardP.productCards).toHaveCount(0);
             await expect(dashboardP.toastMessage).toHaveText(messages.containerMessages.floatNoProduct);
         });
 
-        test('TC_FLT_NEG_002: Verify search with special characters', async ({ filterP, dashboardP}) => {
+        test('TC_FLT_NEG_002: Verify search with special characters', async ({ filterP, dashboardP }) => {
             await filterP.searchProduct(testData.incorrectDataInput.specialChar);
             await expect(dashboardP.productCards).toHaveCount(0);
             await expect(dashboardP.toastMessage).toHaveText(messages.containerMessages.floatNoProduct);
         });
 
-        test('TC_FLT_NEG_003: Verify price range with min price greater than max price', async ({ filterP, dashboardP}) => {
+        test('TC_FLT_NEG_003: Verify price range with min price greater than max price', async ({ filterP, dashboardP }) => {
             await filterP.filterPriceRange(testData.reversePriceRange.minPrice, testData.reversePriceRange.maxPrice);
             await expect(dashboardP.productCards).toHaveCount(0);
             await expect(dashboardP.toastMessage).toHaveText(messages.containerMessages.floatNoProduct);
         });
+
+        test('TC_FLT_NEG_004: Verify search with empty string', async ({ filterP, dashboardP }) => {
+            await filterP.searchProduct(testData.incorrectDataInput.emptySearch);
+
+            const productCount =  await dashboardP.getAllproductCards();
+            await expect(productCount.length).toBe(0);
+
+            await expect(dashboardP.toastMessage).toHaveText(messages.containerMessages.floatNoProduct);
+        });
+
+
 
     });
 
