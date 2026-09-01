@@ -2,6 +2,7 @@ const {test, expect} = require ('../../fixtures/fixture.js');
 const baseUrls = require ('../../data/urls.js');
 const messages = require ('../../constants/filters/filtersMessages.js');
 const testData = require ('../../data/filters/filtersData.js');
+const { exec } = require('node:child_process');
 
 test.describe('Filters Feature', () => {
 
@@ -95,7 +96,29 @@ test.describe('Filters Feature', () => {
             }
         });
 
+        test('TC_FLT_006: Verify if using search, price range and categories filter data display correctly', async ({ filterP, dashboardP }) => {
+            await filterP.searchProduct(testData.searchItems.shoeItems);
+            await filterP.filterPriceRange(testData.searchPriceRange.minPrice, testData.searchPriceRange.maxPrice);
+            await filterP.selectCategories(testData.searchCategories.fashion);
 
+            const productCount = await dashboardP.productCards.count();
+
+            if(productCount === 0) {
+                await expect(dashboardP.toastMessage).toHaveText(messages.containerMessages.floatNoProduct);
+            } else {
+                const products = await dashboardP.getAllproductCards();
+                await expect(products.length).toBe(productCount);
+            }
+        });
     });
+
+    // filters feature (negative cases)
+    // test.describe('Negative TestCases', () => {
+
+    // });
+
+
+
+
 
 });
