@@ -165,6 +165,11 @@ test.describe('Filters Feature', () => {
             await expect(filterP.mobilesCheckbox).toBeVisible();
             await expect(filterP.laptopsCheckbox).toBeVisible();
         });
+
+        test('TC_FLT_UI_005: Verify search for checkboxes are visible', async ({ filterP }) => {
+            await expect(filterP.forMen).toBeVisible();
+            await expect(filterP.forMen).toBeVisible();
+        });
         
 
 
