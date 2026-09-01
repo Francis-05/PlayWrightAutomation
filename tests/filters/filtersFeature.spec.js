@@ -147,7 +147,7 @@ test.describe('Filters Feature', () => {
             await expect(filterP.searchInput).toHaveAttribute('placeholder', messages.searchFilterPlaceholder.search);
         });
 
-        test.only('TC_FLT_UI_002: Verify Min / Max Price input placeholder text', async ({ filterP }) => {
+        test('TC_FLT_UI_002: Verify Min / Max Price input placeholder text', async ({ filterP }) => {
             await expect(filterP.minPriceInput).toHaveAttribute('placeholder', messages.priceRangePlaceholder.minPrice);
             await expect(filterP.maxPriceInput).toHaveAttribute('placeholder', messages.priceRangePlaceholder.maxPrice);
         });
@@ -156,6 +156,14 @@ test.describe('Filters Feature', () => {
             await expect(filterP.fashionCheckbox).toBeVisible();
             await expect(filterP.electronicsCheckbox).toBeVisible();
             await expect(filterP.householdCheckbox).toBeVisible(); 
+        });
+
+        test('TC_FLT_UI_004: Verify all sub-category checkboxes are visible', async ({ filterP }) => {
+            await expect(filterP.tshirtCheckbox).toBeVisible();
+            await expect(filterP.shirtsCheckbox).toBeVisible();
+            await expect(filterP.shoesCheckbox).toBeVisible(); 
+            await expect(filterP.mobilesCheckbox).toBeVisible();
+            await expect(filterP.laptopsCheckbox).toBeVisible();
         });
         
 
