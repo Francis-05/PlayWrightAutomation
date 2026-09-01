@@ -168,16 +168,12 @@ test.describe('Filters Feature', () => {
 
         test('TC_FLT_UI_005: Verify search for checkboxes are visible', async ({ filterP }) => {
             await expect(filterP.forMen).toBeVisible();
-            await expect(filterP.forMen).toBeVisible();
+            await expect(filterP.forWomen).toBeVisible();
         });
-        
 
-
-    
+        test('TC_FLT_UI_006: Verify maximum 9 products displayed per page', async ({ dashboardP }) => {
+            const productCount = await dashboardP.getAllproductCards();
+            await expect(productCount.length).toBeLessThanOrEqual(9);
+        });
     });
-
-
-
-
-
 });
